@@ -125,6 +125,34 @@
             gap: 12px;
         }
 
+        .contact-chip {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+            padding: 10px 14px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.74);
+            border: 1px solid rgba(114, 76, 59, 0.12);
+            box-shadow: 0 10px 24px rgba(88, 55, 40, 0.08);
+        }
+
+        .contact-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .contact-phone {
+            color: var(--brand-strong);
+            font-weight: 700;
+            line-height: 1.2;
+            padding: 4px 6px;
+            margin: -4px -6px;
+        }
+
         .admin-link {
             padding: 10px 14px;
             border-radius: 999px;
@@ -850,15 +878,19 @@
             </div>
 
             <div class="top-actions">
-                <a class="social-link" href="https://wa.me/56995387455" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+                <div class="contact-chip">
+                    <span class="contact-label">Telefono de contacto</span>
+                    <span class="contact-phone editable" data-scope="contact" data-field="phone" data-contact-phone>+56 9 9538 7455</span>
+                </div>
+                <a class="social-link" href="https://wa.me/56995387455" target="_blank" rel="noreferrer" aria-label="WhatsApp" data-whatsapp-link>
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.94A9.8 9.8 0 0 0 12.03 2C6.52 2 2.03 6.48 2.03 12c0 1.77.46 3.5 1.34 5.02L2 22l5.11-1.34A9.95 9.95 0 0 0 12.03 22c5.51 0 9.97-4.48 9.97-10 0-2.67-1.04-5.18-2.95-7.06ZM12.03 20.3a8.25 8.25 0 0 1-4.21-1.15l-.3-.18-3.03.8.81-2.95-.2-.31A8.2 8.2 0 0 1 3.73 12c0-4.58 3.72-8.3 8.3-8.3 2.22 0 4.31.86 5.87 2.43A8.24 8.24 0 0 1 20.33 12c0 4.58-3.72 8.3-8.3 8.3Zm4.55-6.23c-.25-.12-1.49-.74-1.72-.82-.23-.08-.4-.12-.57.12-.17.25-.65.82-.8.99-.15.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.24-.73-.65-1.22-1.46-1.36-1.71-.14-.25-.01-.38.1-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.57-1.37-.78-1.88-.21-.49-.42-.42-.57-.42h-.49c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.04 0 1.2.88 2.36 1 2.53.12.17 1.73 2.65 4.19 3.71.58.25 1.04.4 1.39.51.58.18 1.1.15 1.52.09.46-.07 1.49-.61 1.7-1.2.21-.59.21-1.1.15-1.2-.06-.1-.23-.16-.48-.29Z"/></svg>
                 </a>
                 <a class="social-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95Zm8.97 1.35a1.08 1.08 0 1 1 0 2.16 1.08 1.08 0 0 1 0-2.16ZM12 6.85A5.15 5.15 0 1 1 6.85 12 5.16 5.16 0 0 1 12 6.85Zm0 1.8A3.35 3.35 0 1 0 15.35 12 3.35 3.35 0 0 0 12 8.65Z"/></svg>
                 </a>
-                <a class="cta-link" href="https://wa.me/56995387455?text=Hola%20Pasteleria%20Maria%20Angelica%20Espina%2C%20quisiera%20hacer%20una%20consulta" target="_blank" rel="noreferrer">
+                <a class="cta-link" href="https://wa.me/56995387455?text=Hola%20Pasteleria%20Maria%20Angelica%20Espina%2C%20quisiera%20hacer%20una%20consulta" target="_blank" rel="noreferrer" data-whatsapp-link data-whatsapp-message="Hola Pasteleria Maria Angelica Espina, quisiera hacer una consulta">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M19.05 4.94A9.8 9.8 0 0 0 12.03 2C6.52 2 2.03 6.48 2.03 12c0 1.77.46 3.5 1.34 5.02L2 22l5.11-1.34A9.95 9.95 0 0 0 12.03 22c5.51 0 9.97-4.48 9.97-10 0-2.67-1.04-5.18-2.95-7.06Z"/></svg>
-                    <span>WhatsApp +56 9 9538 7455</span>
+                    <span>WhatsApp <span data-contact-phone>+56 9 9538 7455</span></span>
                 </a>
             </div>
         </header>
@@ -943,7 +975,7 @@
         </section>
 
         <div class="edit-hint admin-only block" id="edit-hint">
-            Haz clic sobre <strong>nombre, precio o textos promocionales</strong> para editarlos al instante. Tambien puedes subir una imagen por producto o para la promocion principal, y todo queda guardado en este navegador.
+            Haz clic sobre <strong>nombre, precio, telefono o textos promocionales</strong> para editarlos al instante. Tambien puedes subir una imagen por producto o para la promocion principal, y todo queda guardado en este navegador.
         </div>
 
         <section class="catalog">
@@ -1287,13 +1319,13 @@
             </div>
             <div class="top-actions">
                 <button class="admin-link" type="button" id="open-admin">Acceso</button>
-                <a class="social-link" href="https://wa.me/56995387455" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+                <a class="social-link" href="https://wa.me/56995387455" target="_blank" rel="noreferrer" aria-label="WhatsApp" data-whatsapp-link>
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.94A9.8 9.8 0 0 0 12.03 2C6.52 2 2.03 6.48 2.03 12c0 1.77.46 3.5 1.34 5.02L2 22l5.11-1.34A9.95 9.95 0 0 0 12.03 22c5.51 0 9.97-4.48 9.97-10 0-2.67-1.04-5.18-2.95-7.06Z"/></svg>
                 </a>
                 <a class="social-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Z"/></svg>
                 </a>
-                <a class="cta-link" href="https://wa.me/56995387455?text=Hola%2C%20quiero%20cotizar%20productos%20de%20pasteleria" target="_blank" rel="noreferrer">Cotizar por WhatsApp</a>
+                <a class="cta-link" href="https://wa.me/56995387455?text=Hola%2C%20quiero%20cotizar%20productos%20de%20pasteleria" target="_blank" rel="noreferrer" data-whatsapp-link data-whatsapp-message="Hola, quiero cotizar productos de pasteleria">Cotizar por WhatsApp</a>
             </div>
         </footer>
     </div>
@@ -1301,7 +1333,7 @@
     <div class="admin-panel" id="admin-panel" aria-hidden="true">
         <div class="admin-dialog">
             <h3>Acceso de administracion</h3>
-            <p>Ingresa la clave para habilitar la edicion del contenido y la carga de imagenes en este navegador.</p>
+            <p>Ingresa la clave para habilitar la edicion del contenido, el telefono de contacto y la carga de imagenes en este navegador.</p>
             <label for="admin-password">Clave</label>
             <input id="admin-password" type="password" autocomplete="current-password" placeholder="Escribe la clave">
             <div class="admin-dialog-actions">
@@ -1317,6 +1349,7 @@
     <script>
         const STORAGE_KEY = 'pasteleria_maria_angelica_catalogo';
         const PROMO_KEY = 'pasteleria_maria_angelica_promo';
+        const CONTACT_KEY = 'pasteleria_maria_angelica_contacto';
         const ADMIN_SESSION_KEY = 'pasteleria_maria_angelica_admin';
         const ADMIN_PASSWORD = 'MariaEspina2026';
         const cards = Array.from(document.querySelectorAll('.product-card'));
@@ -1343,12 +1376,20 @@
             image: ''
         };
 
+        const contactState = {
+            phone: document.querySelector('[data-scope="contact"][data-field="phone"]').textContent.trim()
+        };
+
         function saveCatalog() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(catalogState));
         }
 
         function savePromo() {
             localStorage.setItem(PROMO_KEY, JSON.stringify(promoState));
+        }
+
+        function saveContact() {
+            localStorage.setItem(CONTACT_KEY, JSON.stringify(contactState));
         }
 
         function isAdminEnabled() {
@@ -1408,6 +1449,28 @@
             }
         }
 
+        function getWhatsappNumber(phone) {
+            const digits = phone.replace(/\D/g, '');
+            if (!digits) return '';
+            if (digits.startsWith('56')) return digits;
+            if (digits.length === 9) return '56' + digits;
+            return digits;
+        }
+
+        function applyContactInfo(phone) {
+            const whatsappNumber = getWhatsappNumber(phone);
+
+            document.querySelectorAll('[data-contact-phone]').forEach(element => {
+                element.textContent = phone;
+            });
+
+            document.querySelectorAll('[data-whatsapp-link]').forEach(link => {
+                const baseUrl = 'https://wa.me/' + whatsappNumber;
+                const message = link.dataset.whatsappMessage;
+                link.href = message ? baseUrl + '?text=' + encodeURIComponent(message) : baseUrl;
+            });
+        }
+
         function startInlineEdit(element) {
             if (!isAdminEnabled()) return;
             if (element.classList.contains('editing')) return;
@@ -1441,6 +1504,13 @@
                 if (scope === 'promo') {
                     promoState[field] = finalValue;
                     savePromo();
+                    return;
+                }
+
+                if (scope === 'contact') {
+                    contactState[field] = finalValue;
+                    applyContactInfo(finalValue);
+                    saveContact();
                     return;
                 }
 
@@ -1590,6 +1660,13 @@
             promoState.image = savedPromo.image;
             applyPromoImage(savedPromo.image);
         }
+
+        const savedContact = JSON.parse(localStorage.getItem(CONTACT_KEY) || '{}');
+        if (savedContact.phone) {
+            contactState.phone = savedContact.phone;
+        }
+
+        applyContactInfo(contactState.phone);
 
         setAdminEnabled(isAdminEnabled());
     </script>
