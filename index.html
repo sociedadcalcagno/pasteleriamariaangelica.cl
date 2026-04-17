@@ -1,0 +1,1597 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pasteleria Maria Angelica Espina</title>
+    <meta name="description" content="Pasteleria Maria Angelica Espina. Tortas, bocados dulces y salados para celebraciones familiares, empresas y eventos especiales.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23724c3b'/%3E%3Cpath d='M16 43h32a6 6 0 0 0-6-6H22a6 6 0 0 0-6 6Z' fill='%23f8e6d4'/%3E%3Cpath d='M23 37c0-9 3-17 9-17s9 8 9 17' fill='none' stroke='%23f4c680' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='16' r='4' fill='%23f4c680'/%3E%3C/svg%3E">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #f5e9df;
+            --bg-soft: #fff7f1;
+            --surface: rgba(255, 251, 247, 0.88);
+            --surface-strong: #fffdf9;
+            --line: rgba(130, 64, 42, 0.2);
+            --text: #4a2c22;
+            --muted: #755448;
+            --brand: #a04f38;
+            --brand-strong: #843f2c;
+            --brand-soft: #f3d5c4;
+            --accent: #dc8a58;
+            --accent-strong: #c56435;
+            --gold: #e0a86c;
+            --shadow: 0 24px 70px rgba(97, 47, 31, 0.14);
+            --radius-xl: 32px;
+            --radius-lg: 22px;
+            --radius-md: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(220, 138, 88, 0.28), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(160, 79, 56, 0.16), transparent 24%),
+                linear-gradient(180deg, #fff5ee 0%, var(--bg) 55%, #efdfd2 100%);
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(rgba(255, 247, 241, 0.84), rgba(245, 233, 223, 0.9)),
+                url('https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+            opacity: 0.42;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(255, 250, 246, 0.24), rgba(132, 63, 44, 0.08));
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        button, input { font: inherit; }
+
+        .page-shell {
+            width: min(1180px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 24px 0 48px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0 28px;
+        }
+
+        .brand-lockup {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-mark {
+            width: 56px;
+            height: 56px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(145deg, var(--brand), var(--brand-strong));
+            color: #fff4e6;
+            box-shadow: 0 14px 28px rgba(114, 76, 59, 0.22);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
+        .brand-text strong {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 2vw, 2rem);
+            line-height: 1;
+            color: var(--brand-strong);
+        }
+
+        .brand-text span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .admin-link {
+            padding: 10px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(132, 63, 44, 0.14);
+            background: rgba(255, 255, 255, 0.58);
+            color: var(--muted);
+            font-size: 0.88rem;
+            cursor: pointer;
+        }
+
+        .admin-toolbar {
+            position: sticky;
+            top: 16px;
+            z-index: 12;
+            display: none;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+
+        .admin-enabled .admin-toolbar {
+            display: flex;
+        }
+
+        .admin-toolbar-inner {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: rgba(132, 63, 44, 0.94);
+            color: #fff7f1;
+            box-shadow: 0 16px 32px rgba(53, 28, 22, 0.2);
+        }
+
+        .admin-toolbar-text {
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .admin-toolbar .ghost-button {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.14);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.18);
+            box-shadow: none;
+        }
+
+        .social-link,
+        .cta-link,
+        .upload-button,
+        .ghost-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 999px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .social-link:hover,
+        .cta-link:hover,
+        .upload-button:hover,
+        .ghost-button:hover {
+            transform: translateY(-1px);
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(114, 76, 59, 0.12);
+            box-shadow: 0 10px 24px rgba(88, 55, 40, 0.08);
+        }
+
+        .social-link svg { width: 18px; height: 18px; }
+
+        .cta-link {
+            padding: 12px 18px;
+            background: linear-gradient(135deg, #2dbb6d, #1d8f55);
+            color: white;
+            box-shadow: 0 16px 30px rgba(45, 187, 109, 0.24);
+            font-weight: 600;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.18fr) minmax(320px, 0.82fr);
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .hero-card,
+        .promo-card,
+        .story-card,
+        .category,
+        .vision-card,
+        .footer-card {
+            background: var(--surface);
+            border: 1px solid rgba(160, 79, 56, 0.1);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .hero-card {
+            border-radius: var(--radius-xl);
+            padding: clamp(28px, 5vw, 48px);
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 0 1px rgba(220, 138, 88, 0.16), var(--shadow);
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(140deg, rgba(255, 255, 255, 0.32), transparent 54%);
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(244, 225, 210, 0.84);
+            color: var(--brand-strong);
+            font-size: 0.83rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .hero-card h1,
+        .promo-copy h2,
+        .section-header h2,
+        .vision-card h2,
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-card h1 {
+            max-width: 12ch;
+            margin-top: 18px;
+            font-size: clamp(3rem, 7vw, 5.4rem);
+            line-height: 0.93;
+            color: var(--brand-strong);
+        }
+
+        .hero-card p {
+            max-width: 58ch;
+            margin-top: 18px;
+            color: var(--muted);
+            line-height: 1.75;
+            font-size: 1rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 28px;
+        }
+
+        .hero-stat {
+            padding: 16px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.68);
+            border: 1px solid rgba(114, 76, 59, 0.08);
+        }
+
+        .hero-stat strong {
+            display: block;
+            color: var(--brand-strong);
+            font-size: 1rem;
+        }
+
+        .hero-stat span {
+            display: block;
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .promo-card {
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .promo-media {
+            min-height: 290px;
+            background:
+                linear-gradient(180deg, rgba(76, 52, 40, 0.08), rgba(76, 52, 40, 0.22)),
+                radial-gradient(circle at top left, rgba(255, 255, 255, 0.35), transparent 30%),
+                linear-gradient(145deg, #f4d8b9, #c98355);
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            padding: 18px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .promo-badge {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 250, 245, 0.9);
+            color: var(--brand-strong);
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        .promo-actions {
+            position: absolute;
+            right: 18px;
+            bottom: 18px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .upload-button,
+        .ghost-button {
+            padding: 10px 14px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(114, 76, 59, 0.1);
+            color: var(--brand-strong);
+            box-shadow: 0 12px 24px rgba(88, 55, 40, 0.08);
+        }
+
+        .promo-copy {
+            padding: 26px;
+        }
+
+        .promo-copy h2 {
+            font-size: clamp(2rem, 4vw, 3.1rem);
+            line-height: 0.98;
+            color: var(--brand-strong);
+        }
+
+        .promo-copy p {
+            margin-top: 12px;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .editable {
+            cursor: pointer;
+            transition: background 0.2s ease, outline-color 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 12px;
+        }
+
+        .admin-enabled .editable:hover {
+            background: rgba(244, 225, 210, 0.5);
+        }
+
+        .editable.editing {
+            background: rgba(255, 250, 240, 0.95);
+            box-shadow: inset 0 0 0 2px rgba(216, 155, 107, 0.45);
+        }
+
+        .editable input,
+        .editable textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font: inherit;
+            color: inherit;
+            resize: none;
+        }
+
+        .story-card,
+        .vision-card,
+        .footer-card,
+        .category {
+            border-radius: var(--radius-lg);
+        }
+
+        .story-card,
+        .vision-card {
+            margin-top: 24px;
+            padding: 28px;
+        }
+
+        .story-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr);
+            gap: 24px;
+            align-items: center;
+        }
+
+        .story-card h2,
+        .vision-card h2 {
+            font-size: clamp(2.1rem, 4vw, 3rem);
+            color: var(--brand-strong);
+            line-height: 0.96;
+        }
+
+        .story-card p,
+        .vision-card p {
+            margin-top: 14px;
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .story-quote {
+            padding: 22px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, rgba(244, 225, 210, 0.9), rgba(255, 255, 255, 0.72));
+            border: 1px solid rgba(114, 76, 59, 0.08);
+            color: var(--brand-strong);
+        }
+
+        .story-quote strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .story-quote span {
+            display: block;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .vision-point {
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.68);
+            border: 1px solid rgba(114, 76, 59, 0.08);
+        }
+
+        .vision-point strong {
+            display: block;
+            color: var(--brand-strong);
+            margin-bottom: 8px;
+        }
+
+        .vision-point span {
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: 0.95rem;
+        }
+
+        .edit-hint {
+            margin: 28px 0 20px;
+            padding: 16px 20px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(244, 225, 210, 0.94), rgba(255, 255, 255, 0.75));
+            border: 1px solid rgba(114, 76, 59, 0.1);
+            color: var(--brand-strong);
+            line-height: 1.65;
+        }
+
+        .catalog {
+            margin-top: 30px;
+            display: grid;
+            gap: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 18px;
+            margin-top: 18px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--brand-strong);
+            line-height: 0.98;
+        }
+
+        .section-header p {
+            max-width: 44ch;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .category {
+            padding: 24px;
+            box-shadow: inset 0 0 0 1px rgba(220, 138, 88, 0.12), var(--shadow);
+        }
+
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(145deg, rgba(244, 225, 210, 0.92), rgba(255, 255, 255, 0.8));
+            font-size: 1.4rem;
+        }
+
+        .category-title h3 {
+            font-size: 1.3rem;
+            color: var(--brand-strong);
+        }
+
+        .category-title span,
+        .category-note {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+            gap: 18px;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(160, 79, 56, 0.12);
+            box-shadow: 0 18px 34px rgba(88, 55, 40, 0.08);
+        }
+
+        .product-media {
+            height: 190px;
+            background:
+                linear-gradient(180deg, rgba(76, 52, 40, 0.05), rgba(76, 52, 40, 0.22)),
+                linear-gradient(145deg, #f3dac1, #d89b6b);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 14px;
+        }
+
+        .product-badge {
+            padding: 7px 11px;
+            border-radius: 999px;
+            background: rgba(255, 250, 245, 0.92);
+            color: var(--brand-strong);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .media-tools {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        .media-tools .upload-button,
+        .media-tools .ghost-button {
+            padding: 8px 12px;
+            font-size: 0.82rem;
+        }
+
+        .product-body {
+            padding: 18px;
+        }
+
+        .product-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.45;
+            color: var(--brand-strong);
+            padding: 6px 8px;
+            margin: -6px -8px 8px;
+        }
+
+        .product-price {
+            display: inline-block;
+            margin-top: 2px;
+            padding: 6px 10px;
+            border-radius: 14px;
+            background: rgba(244, 225, 210, 0.62);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--brand-strong);
+        }
+
+        .product-unit,
+        .product-caption {
+            display: block;
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 0.92rem;
+        }
+
+        .footer-card {
+            margin-top: 28px;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .footer-brand {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--brand-strong);
+            line-height: 0.95;
+        }
+
+        .footer-card p {
+            color: var(--muted);
+            line-height: 1.7;
+            max-width: 56ch;
+        }
+
+        .hidden-input { display: none; }
+
+        .admin-only {
+            display: none;
+        }
+
+        .admin-enabled .admin-only {
+            display: inline-flex;
+        }
+
+        .admin-enabled .admin-only.block {
+            display: block;
+        }
+
+        .editable {
+            cursor: default;
+        }
+
+        .upload-button,
+        .ghost-button {
+            display: none;
+        }
+
+        .admin-enabled .editable {
+            cursor: pointer;
+        }
+
+        .admin-enabled .upload-button,
+        .admin-enabled .ghost-button {
+            display: inline-flex;
+        }
+
+        .admin-panel {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(53, 28, 22, 0.42);
+            backdrop-filter: blur(10px);
+            z-index: 20;
+        }
+
+        .admin-panel.open {
+            display: flex;
+        }
+
+        .admin-dialog {
+            width: min(100%, 420px);
+            padding: 28px;
+            border-radius: 24px;
+            background: rgba(255, 250, 245, 0.96);
+            border: 1px solid rgba(160, 79, 56, 0.16);
+            box-shadow: 0 32px 80px rgba(53, 28, 22, 0.22);
+        }
+
+        .admin-dialog h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--brand-strong);
+        }
+
+        .admin-dialog p {
+            margin-top: 10px;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .admin-dialog label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 8px;
+            color: var(--brand-strong);
+            font-weight: 600;
+        }
+
+        .admin-dialog input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(160, 79, 56, 0.18);
+            background: white;
+        }
+
+        .admin-dialog-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .admin-message {
+            margin-top: 12px;
+            color: #a23030;
+            min-height: 1.2em;
+            font-size: 0.92rem;
+        }
+
+        .admin-status {
+            margin-top: 12px;
+            color: var(--brand-strong);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 960px) {
+            .hero,
+            .story-card,
+            .footer-card {
+                grid-template-columns: 1fr;
+                display: grid;
+            }
+
+            .vision-grid,
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .page-shell { width: min(100% - 20px, 1180px); }
+
+            .topbar,
+            .section-header,
+            .category-header,
+            .footer-card {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .top-actions {
+                justify-content: flex-start;
+            }
+
+            .hero-card,
+            .promo-copy,
+            .story-card,
+            .vision-card,
+            .category,
+            .footer-card {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .promo-actions,
+            .media-tools {
+                flex-wrap: wrap;
+            }
+
+            .promo-copy h2,
+            .hero-card h1,
+            .section-header h2,
+            .story-card h2,
+            .vision-card h2,
+            .footer-brand {
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="admin-toolbar" id="admin-toolbar">
+            <div class="admin-toolbar-inner">
+                <span class="admin-toolbar-text">Modo edicion activo</span>
+                <button class="ghost-button" type="button" id="toolbar-logout">Cerrar edicion</button>
+            </div>
+        </div>
+
+        <header class="topbar">
+            <div class="brand-lockup">
+                <div class="brand-mark" aria-hidden="true">MA</div>
+                <div class="brand-text">
+                    <strong>Pasteleria Maria Angelica Espina</strong>
+                    <span>Reposteria fina, bocados para compartir y detalles pensados con carino.</span>
+                </div>
+            </div>
+
+            <div class="top-actions">
+                <a class="social-link" href="https://wa.me/56995387455" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.94A9.8 9.8 0 0 0 12.03 2C6.52 2 2.03 6.48 2.03 12c0 1.77.46 3.5 1.34 5.02L2 22l5.11-1.34A9.95 9.95 0 0 0 12.03 22c5.51 0 9.97-4.48 9.97-10 0-2.67-1.04-5.18-2.95-7.06ZM12.03 20.3a8.25 8.25 0 0 1-4.21-1.15l-.3-.18-3.03.8.81-2.95-.2-.31A8.2 8.2 0 0 1 3.73 12c0-4.58 3.72-8.3 8.3-8.3 2.22 0 4.31.86 5.87 2.43A8.24 8.24 0 0 1 20.33 12c0 4.58-3.72 8.3-8.3 8.3Zm4.55-6.23c-.25-.12-1.49-.74-1.72-.82-.23-.08-.4-.12-.57.12-.17.25-.65.82-.8.99-.15.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.24-.73-.65-1.22-1.46-1.36-1.71-.14-.25-.01-.38.1-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.57-1.37-.78-1.88-.21-.49-.42-.42-.57-.42h-.49c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.04 0 1.2.88 2.36 1 2.53.12.17 1.73 2.65 4.19 3.71.58.25 1.04.4 1.39.51.58.18 1.1.15 1.52.09.46-.07 1.49-.61 1.7-1.2.21-.59.21-1.1.15-1.2-.06-.1-.23-.16-.48-.29Z"/></svg>
+                </a>
+                <a class="social-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95Zm8.97 1.35a1.08 1.08 0 1 1 0 2.16 1.08 1.08 0 0 1 0-2.16ZM12 6.85A5.15 5.15 0 1 1 6.85 12 5.16 5.16 0 0 1 12 6.85Zm0 1.8A3.35 3.35 0 1 0 15.35 12 3.35 3.35 0 0 0 12 8.65Z"/></svg>
+                </a>
+                <a class="cta-link" href="https://wa.me/56995387455?text=Hola%20Pasteleria%20Maria%20Angelica%20Espina%2C%20quisiera%20hacer%20una%20consulta" target="_blank" rel="noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M19.05 4.94A9.8 9.8 0 0 0 12.03 2C6.52 2 2.03 6.48 2.03 12c0 1.77.46 3.5 1.34 5.02L2 22l5.11-1.34A9.95 9.95 0 0 0 12.03 22c5.51 0 9.97-4.48 9.97-10 0-2.67-1.04-5.18-2.95-7.06Z"/></svg>
+                    <span>WhatsApp +56 9 9538 7455</span>
+                </a>
+            </div>
+        </header>
+
+        <section class="hero">
+            <article class="hero-card">
+                <div class="eyebrow">Atencion familiar y presentacion profesional</div>
+                <h1>Sabores que abrazan cada celebracion.</h1>
+                <p>
+                    Pasteleria Maria Angelica Espina nace para acompanar momentos importantes con una propuesta cercana, elegante y confiable.
+                    Cada pedido busca verse hermoso, llegar bien presentado y sentirse hecho en casa, con el cuidado de una marca seria y el carino de una familia.
+                </p>
+
+                <div class="hero-grid">
+                    <div class="hero-stat">
+                        <strong>Vision</strong>
+                        <span>Ser una pasteleria recordada por su calidez, consistencia y presentacion impecable.</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong>Estilo</strong>
+                        <span>Formal, carinoso y familiar: ideal para eventos, regalos y celebraciones.</span>
+                    </div>
+                    <div class="hero-stat">
+                        <strong>Experiencia</strong>
+                        <span>Catalogo editable, imagenes propias y contacto directo para vender mas facil.</span>
+                    </div>
+                </div>
+            </article>
+
+            <aside class="promo-card">
+                <div class="promo-media" id="promo-media">
+                    <div class="promo-badge">Promocion destacada</div>
+                    <div class="promo-actions">
+                        <label class="upload-button" for="promo-image-input">Subir imagen</label>
+                        <button class="ghost-button" type="button" id="promo-remove-image">Quitar</button>
+                    </div>
+                    <input class="hidden-input" id="promo-image-input" type="file" accept="image/*">
+                </div>
+                <div class="promo-copy">
+                    <h2 class="editable" data-scope="promo" data-field="title">Tu mesa dulce tambien puede comunicar marca y carino.</h2>
+                    <p class="editable" data-scope="promo" data-field="description" data-multiline="true">Haz clic aqui para cambiar este texto. Usa este espacio para destacar una promo, una temporada o un producto especial con una imagen propia.</p>
+                </div>
+            </aside>
+        </section>
+
+        <section class="story-card">
+            <div>
+                <h2>Una presencia mas ordenada, elegante y lista para publicar.</h2>
+                <p>
+                    Este sitio fue reorganizado para que la marca se vea mas corporativa sin perder cercania. La navegacion visual esta pensada para mostrar productos,
+                    destacar promociones y dejar que el cliente vea rapidamente lo que puede pedir para reuniones, cumpleanos, celebraciones y regalos.
+                </p>
+            </div>
+            <div class="story-quote">
+                <strong>Tono de marca sugerido</strong>
+                <span>
+                    "Recibimos cada pedido con la dedicacion de una casa que atiende con afecto y la seriedad de una pasteleria que cuida cada detalle."
+                </span>
+            </div>
+        </section>
+
+        <section class="vision-card">
+            <h2>Vision corporativa</h2>
+            <p>
+                Construir una marca de pasteleria familiar con imagen premium, cercana y confiable; capaz de transmitir calidez en cada producto,
+                responder con profesionalismo y convertirse en una opcion habitual para familias, empresas y celebraciones especiales.
+            </p>
+            <div class="vision-grid">
+                <div class="vision-point">
+                    <strong>Calidez con estructura</strong>
+                    <span>Trato amable, lenguaje cercano y una presentacion visual limpia que genere confianza inmediata.</span>
+                </div>
+                <div class="vision-point">
+                    <strong>Calidad visible</strong>
+                    <span>Imagenes propias, productos bien descritos y una identidad que haga ver cada pedido mas deseable.</span>
+                </div>
+                <div class="vision-point">
+                    <strong>Crecimiento simple</strong>
+                    <span>Una base lista para escalar en Bolt, publicar online y actualizar textos, precios e imagenes sin complicarse.</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="edit-hint admin-only block" id="edit-hint">
+            Haz clic sobre <strong>nombre, precio o textos promocionales</strong> para editarlos al instante. Tambien puedes subir una imagen por producto o para la promocion principal, y todo queda guardado en este navegador.
+        </div>
+
+        <section class="catalog">
+            <div class="section-header">
+                <h2>Catalogo principal</h2>
+                <p>Una seleccion presentada con un lenguaje mas claro para vender mejor, inspirar confianza y facilitar futuras publicaciones.</p>
+            </div>
+
+            <section class="category">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">🎂</div>
+                        <div>
+                            <h3>Tortas de celebracion</h3>
+                            <span>Capas suaves, rellenos clasicos y presentacion para compartir.</span>
+                        </div>
+                    </div>
+                    <div class="category-note">Ideal para cumpleanos, reuniones y fechas especiales.</div>
+                </div>
+
+                <div class="products-grid">
+                    <article class="product-card" data-product="torta-grande-milhoja">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Milhoja</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-torta-grande-milhoja">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-torta-grande-milhoja" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Torta Grande de Milhoja</div>
+                            <div class="product-price editable" data-field="precio">$65.000</div>
+                            <span class="product-caption">Una opcion generosa para mesas familiares y celebraciones amplias.</span>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="torta-mediana-milhoja">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Milhoja</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-torta-mediana-milhoja">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-torta-mediana-milhoja" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Torta Mediana de Milhoja</div>
+                            <div class="product-price editable" data-field="precio">$55.000</div>
+                            <span class="product-caption">Equilibrio perfecto entre presencia, sabor y practicidad.</span>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="torta-chica-milhoja">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Milhoja</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-torta-chica-milhoja">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-torta-chica-milhoja" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Torta Chica de Milhoja</div>
+                            <div class="product-price editable" data-field="precio">$45.000</div>
+                            <span class="product-caption">Pensada para encuentros intimos con terminacion delicada.</span>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="pompadour-grande">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Favorita</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-pompadour-grande">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-pompadour-grande" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Pompadour Grande</div>
+                            <div class="product-price editable" data-field="precio">$70.000</div>
+                            <span class="product-caption">Presentacion protagonista para celebraciones memorables.</span>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="pompadour-mediana">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Pompadour</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-pompadour-mediana">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-pompadour-mediana" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Pompadour Mediana</div>
+                            <div class="product-price editable" data-field="precio">$60.000</div>
+                            <span class="product-caption">Un formato elegante para reuniones y celebraciones medianas.</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="category">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">🥟</div>
+                        <div>
+                            <h3>Salados para compartir</h3>
+                            <span>Sabores clasicos y rendidores para eventos, oficinas y mesas familiares.</span>
+                        </div>
+                    </div>
+                    <div class="category-note">Preparaciones ideales para 100 unidades.</div>
+                </div>
+
+                <div class="products-grid">
+                    <article class="product-card" data-product="canapes">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Cocktail</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-canapes">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-canapes" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Canapes</div>
+                            <div class="product-price editable" data-field="precio">$50.000</div>
+                            <span class="product-unit">x 100 unid.</span>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="empanada-pino-queso">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Cocktail</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-empanada-pino-queso">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-empanada-pino-queso" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Empanaditas de Cocktail de Pino y Queso</div>
+                            <div class="product-price editable" data-field="precio">$40.000</div>
+                            <span class="product-unit">x 100 unid.</span>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="empanada-pino">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Tradicional</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-empanada-pino">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-empanada-pino" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Empanaditas de Pino</div>
+                            <div class="product-price editable" data-field="precio">$40.000</div>
+                            <span class="product-unit">x 100 unid.</span>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="peti-buche">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Clasico</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-peti-buche">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-peti-buche" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Peti Buche</div>
+                            <div class="product-price editable" data-field="precio">$40.000</div>
+                            <span class="product-unit">x 100 unid.</span>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="choricillo">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Salado</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-choricillo">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-choricillo" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Choricillo en Masa</div>
+                            <div class="product-price editable" data-field="precio">$40.000</div>
+                            <span class="product-unit">x 100 unid.</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section class="category">
+                <div class="category-header">
+                    <div class="category-title">
+                        <div class="category-icon">🍢</div>
+                        <div>
+                            <h3>Especialidades y bocados</h3>
+                            <span>Alternativas para mesas mixtas, celebraciones y presentaciones mas vistosas.</span>
+                        </div>
+                    </div>
+                    <div class="category-note">Formatos seleccionados para promocionar visualmente.</div>
+                </div>
+
+                <div class="products-grid">
+                    <article class="product-card" data-product="brocheta-lomo">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Brocheta</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-brocheta-lomo">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-brocheta-lomo" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Brocheta Lomo - Jamon - Pina</div>
+                            <div class="product-price editable" data-field="precio">$45.000</div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="brocheta-pollo">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Premium</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-brocheta-pollo">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-brocheta-pollo" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Brocheta Filete Pollo</div>
+                            <div class="product-price editable" data-field="precio">$70.000</div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="tartaleta-fruta">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Dulce</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-tartaleta-fruta">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-tartaleta-fruta" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Tartaleta de Fruta</div>
+                            <div class="product-price editable" data-field="precio">$40.000</div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="tapaditos">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Variedad</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-tapaditos">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-tapaditos" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Tapaditos (4 variedades)</div>
+                            <div class="product-price editable" data-field="precio">$60.000</div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="mini-pizza">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Mini Pizza</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-mini-pizza">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-mini-pizza" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Mini Pizza</div>
+                            <div class="product-price editable" data-field="precio">$40.000</div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="pizzeta">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Grande</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-pizzeta">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-pizzeta" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Pizzeta (Mas grande)</div>
+                            <div class="product-price editable" data-field="precio">$45.000</div>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="chilenitos">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Dulce</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-chilenitos">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-chilenitos" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Chilenitos Dulcecitos</div>
+                            <div class="product-price editable" data-field="precio">$40.000</div>
+                            <span class="product-unit">x 100 unid.</span>
+                        </div>
+                    </article>
+
+                    <article class="product-card" data-product="panqueque-naranja">
+                        <div class="product-media" data-media>
+                            <div class="product-badge">Destacado</div>
+                            <div class="media-tools">
+                                <label class="upload-button" for="upload-panqueque-naranja">Imagen</label>
+                                <button class="ghost-button" type="button" data-remove-image>Quitar</button>
+                            </div>
+                            <input class="hidden-input image-input" id="upload-panqueque-naranja" type="file" accept="image/*">
+                        </div>
+                        <div class="product-body">
+                            <div class="product-name editable" data-field="nombre">Panqueque Naranja (todas las tallas)</div>
+                            <div class="product-price editable" data-field="precio">Consultar variedad</div>
+                            <span class="product-caption">Grande, mediano o chico segun necesidad del pedido.</span>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </section>
+
+        <footer class="footer-card">
+            <div>
+                <div class="footer-brand">Maria Angelica Espina</div>
+                <p>Pasteleria con alma familiar, imagen cuidada y una propuesta lista para seguir creciendo en canales digitales, catalogos y redes.</p>
+            </div>
+            <div class="top-actions">
+                <button class="admin-link" type="button" id="open-admin">Acceso</button>
+                <a class="social-link" href="https://wa.me/56995387455" target="_blank" rel="noreferrer" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.94A9.8 9.8 0 0 0 12.03 2C6.52 2 2.03 6.48 2.03 12c0 1.77.46 3.5 1.34 5.02L2 22l5.11-1.34A9.95 9.95 0 0 0 12.03 22c5.51 0 9.97-4.48 9.97-10 0-2.67-1.04-5.18-2.95-7.06Z"/></svg>
+                </a>
+                <a class="social-link" href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Z"/></svg>
+                </a>
+                <a class="cta-link" href="https://wa.me/56995387455?text=Hola%2C%20quiero%20cotizar%20productos%20de%20pasteleria" target="_blank" rel="noreferrer">Cotizar por WhatsApp</a>
+            </div>
+        </footer>
+    </div>
+
+    <div class="admin-panel" id="admin-panel" aria-hidden="true">
+        <div class="admin-dialog">
+            <h3>Acceso de administracion</h3>
+            <p>Ingresa la clave para habilitar la edicion del contenido y la carga de imagenes en este navegador.</p>
+            <label for="admin-password">Clave</label>
+            <input id="admin-password" type="password" autocomplete="current-password" placeholder="Escribe la clave">
+            <div class="admin-dialog-actions">
+                <button class="cta-link" type="button" id="admin-submit">Entrar</button>
+                <button class="ghost-button" type="button" id="admin-close" style="display:inline-flex;">Cerrar</button>
+                <button class="ghost-button" type="button" id="admin-logout" style="display:inline-flex;">Salir</button>
+            </div>
+            <div class="admin-message" id="admin-message"></div>
+            <div class="admin-status" id="admin-status"></div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'pasteleria_maria_angelica_catalogo';
+        const PROMO_KEY = 'pasteleria_maria_angelica_promo';
+        const ADMIN_SESSION_KEY = 'pasteleria_maria_angelica_admin';
+        const ADMIN_PASSWORD = 'MariaEspina2026';
+        const cards = Array.from(document.querySelectorAll('.product-card'));
+        const adminPanel = document.getElementById('admin-panel');
+        const adminPasswordInput = document.getElementById('admin-password');
+        const adminMessage = document.getElementById('admin-message');
+        const adminStatus = document.getElementById('admin-status');
+        const adminLogoutButton = document.getElementById('admin-logout');
+        const toolbarLogoutButton = document.getElementById('toolbar-logout');
+
+        const catalogState = cards.reduce((acc, card) => {
+            const productId = card.dataset.product;
+            acc[productId] = {
+                nombre: card.querySelector('[data-field="nombre"]').textContent.trim(),
+                precio: card.querySelector('[data-field="precio"]').textContent.trim(),
+                imagen: ''
+            };
+            return acc;
+        }, {});
+
+        const promoState = {
+            title: document.querySelector('[data-scope="promo"][data-field="title"]').textContent.trim(),
+            description: document.querySelector('[data-scope="promo"][data-field="description"]').textContent.trim(),
+            image: ''
+        };
+
+        function saveCatalog() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(catalogState));
+        }
+
+        function savePromo() {
+            localStorage.setItem(PROMO_KEY, JSON.stringify(promoState));
+        }
+
+        function isAdminEnabled() {
+            return sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+        }
+
+        function setAdminEnabled(enabled) {
+            if (enabled) {
+                sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+                document.body.classList.add('admin-enabled');
+                adminStatus.textContent = 'Modo administracion activo en este navegador.';
+                adminLogoutButton.style.display = 'inline-flex';
+            } else {
+                sessionStorage.removeItem(ADMIN_SESSION_KEY);
+                document.body.classList.remove('admin-enabled');
+                adminStatus.textContent = '';
+                adminLogoutButton.style.display = 'none';
+            }
+        }
+
+        function openAdminPanel() {
+            adminPanel.classList.add('open');
+            adminPanel.setAttribute('aria-hidden', 'false');
+            adminMessage.textContent = '';
+            adminPasswordInput.value = '';
+            adminPasswordInput.focus();
+        }
+
+        function closeAdminPanel() {
+            adminPanel.classList.remove('open');
+            adminPanel.setAttribute('aria-hidden', 'true');
+        }
+
+        function normalizePrice(value) {
+            const raw = value.trim();
+            if (!raw) return '$0';
+            const digits = raw.replace(/[^\d]/g, '');
+            const looksNumeric = digits && raw.replace(/[\d\s.,$]/g, '') === '';
+            return looksNumeric ? '$' + Number(digits).toLocaleString('es-CL') : raw;
+        }
+
+        function applyCardImage(card, imageUrl) {
+            const media = card.querySelector('[data-media]');
+            if (imageUrl) {
+                media.style.backgroundImage = 'linear-gradient(180deg, rgba(76, 52, 40, 0.08), rgba(76, 52, 40, 0.28)), url("' + imageUrl + '")';
+            } else {
+                media.style.backgroundImage = '';
+            }
+        }
+
+        function applyPromoImage(imageUrl) {
+            const promoMedia = document.getElementById('promo-media');
+            if (imageUrl) {
+                promoMedia.style.backgroundImage = 'linear-gradient(180deg, rgba(76, 52, 40, 0.1), rgba(76, 52, 40, 0.35)), url("' + imageUrl + '")';
+            } else {
+                promoMedia.style.backgroundImage = '';
+            }
+        }
+
+        function startInlineEdit(element) {
+            if (!isAdminEnabled()) return;
+            if (element.classList.contains('editing')) return;
+
+            const scope = element.dataset.scope || 'catalog';
+            const field = element.dataset.field;
+            const isMultiline = element.dataset.multiline === 'true';
+            const originalValue = element.textContent.trim();
+            const editor = document.createElement(isMultiline ? 'textarea' : 'input');
+
+            editor.value = originalValue;
+            editor.rows = isMultiline ? 4 : 1;
+
+            element.classList.add('editing');
+            element.innerHTML = '';
+            element.appendChild(editor);
+            editor.focus();
+            editor.select?.();
+
+            const cancel = () => {
+                element.classList.remove('editing');
+                element.textContent = originalValue;
+            };
+
+            const save = () => {
+                const nextValue = editor.value.trim() || originalValue;
+                const finalValue = field === 'precio' ? normalizePrice(nextValue) : nextValue;
+                element.classList.remove('editing');
+                element.textContent = finalValue;
+
+                if (scope === 'promo') {
+                    promoState[field] = finalValue;
+                    savePromo();
+                    return;
+                }
+
+                const card = element.closest('.product-card');
+                const productId = card.dataset.product;
+                catalogState[productId][field] = finalValue;
+                saveCatalog();
+            };
+
+            editor.addEventListener('blur', save);
+            editor.addEventListener('keydown', event => {
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    cancel();
+                }
+
+                if (event.key === 'Enter' && !isMultiline && !event.shiftKey) {
+                    event.preventDefault();
+                    save();
+                }
+
+                if (event.key === 'Enter' && isMultiline && (event.ctrlKey || event.metaKey)) {
+                    event.preventDefault();
+                    save();
+                }
+            });
+        }
+
+        document.querySelectorAll('.editable').forEach(element => {
+            element.addEventListener('click', () => startInlineEdit(element));
+        });
+
+        cards.forEach(card => {
+            const productId = card.dataset.product;
+            const input = card.querySelector('.image-input');
+            const removeButton = card.querySelector('[data-remove-image]');
+
+            input.addEventListener('change', event => {
+                if (!isAdminEnabled()) return;
+                const [file] = event.target.files || [];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = loadEvent => {
+                    const imageUrl = loadEvent.target.result;
+                    catalogState[productId].imagen = imageUrl;
+                    applyCardImage(card, imageUrl);
+                    saveCatalog();
+                };
+                reader.readAsDataURL(file);
+            });
+
+            removeButton.addEventListener('click', () => {
+                if (!isAdminEnabled()) return;
+                catalogState[productId].imagen = '';
+                applyCardImage(card, '');
+                input.value = '';
+                saveCatalog();
+            });
+        });
+
+        document.getElementById('promo-image-input').addEventListener('change', event => {
+            if (!isAdminEnabled()) return;
+            const [file] = event.target.files || [];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = loadEvent => {
+                promoState.image = loadEvent.target.result;
+                applyPromoImage(promoState.image);
+                savePromo();
+            };
+            reader.readAsDataURL(file);
+        });
+
+        document.getElementById('promo-remove-image').addEventListener('click', () => {
+            if (!isAdminEnabled()) return;
+            promoState.image = '';
+            applyPromoImage('');
+            document.getElementById('promo-image-input').value = '';
+            savePromo();
+        });
+
+        document.getElementById('open-admin').addEventListener('click', openAdminPanel);
+        document.getElementById('admin-close').addEventListener('click', closeAdminPanel);
+        document.getElementById('admin-logout').addEventListener('click', () => {
+            setAdminEnabled(false);
+            closeAdminPanel();
+        });
+        toolbarLogoutButton.addEventListener('click', () => {
+            setAdminEnabled(false);
+        });
+        document.getElementById('admin-submit').addEventListener('click', () => {
+            if (adminPasswordInput.value === ADMIN_PASSWORD) {
+                setAdminEnabled(true);
+                closeAdminPanel();
+                return;
+            }
+
+            adminMessage.textContent = 'La clave no es correcta.';
+        });
+
+        adminPasswordInput.addEventListener('keydown', event => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementById('admin-submit').click();
+            }
+        });
+
+        adminPanel.addEventListener('click', event => {
+            if (event.target === adminPanel) closeAdminPanel();
+        });
+
+        const savedCatalog = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+        Object.entries(savedCatalog).forEach(([productId, productData]) => {
+            const card = document.querySelector('[data-product="' + productId + '"]');
+            if (!card) return;
+
+            if (productData.nombre) {
+                card.querySelector('[data-field="nombre"]').textContent = productData.nombre;
+                catalogState[productId].nombre = productData.nombre;
+            }
+
+            if (productData.precio) {
+                card.querySelector('[data-field="precio"]').textContent = productData.precio;
+                catalogState[productId].precio = productData.precio;
+            }
+
+            if (productData.imagen) {
+                catalogState[productId].imagen = productData.imagen;
+                applyCardImage(card, productData.imagen);
+            }
+        });
+
+        const savedPromo = JSON.parse(localStorage.getItem(PROMO_KEY) || '{}');
+        if (savedPromo.title) {
+            document.querySelector('[data-scope="promo"][data-field="title"]').textContent = savedPromo.title;
+            promoState.title = savedPromo.title;
+        }
+
+        if (savedPromo.description) {
+            document.querySelector('[data-scope="promo"][data-field="description"]').textContent = savedPromo.description;
+            promoState.description = savedPromo.description;
+        }
+
+        if (savedPromo.image) {
+            promoState.image = savedPromo.image;
+            applyPromoImage(savedPromo.image);
+        }
+
+        setAdminEnabled(isAdminEnabled());
+    </script>
+</body>
+</html>
