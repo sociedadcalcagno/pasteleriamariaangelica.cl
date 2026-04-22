@@ -1399,8 +1399,9 @@
         const PROMO_KEY = 'pasteleria_maria_angelica_promo';
         const CONTACT_KEY = 'pasteleria_maria_angelica_contacto';
         const ADMIN_SESSION_KEY = 'pasteleria_maria_angelica_admin';
-        const IMAGE_DB_NAME = 'pasteleria_maria_angelica_media';
-        const IMAGE_STORE_NAME = 'images';
+        const IMAGE_MAP_URL = './img/image-map.json';
+        const IMAGE_UPLOAD_URL = './upload-image.php';
+        const IMAGE_DELETE_URL = './delete-image.php';
         const ADMIN_PASSWORD = 'MariaEspina2026';
         const initialCards = Array.from(document.querySelectorAll('.product-card'));
         const categories = Array.from(document.querySelectorAll('.category'));
@@ -1433,8 +1434,6 @@
             phone: document.querySelector('[data-scope="contact"][data-field="phone"]').textContent.trim()
         };
 
-        let imageDatabasePromise;
-
         function getCatalogStoragePayload() {
             return Object.fromEntries(Object.entries(catalogState).map(([productId, productData]) => [productId, {
                 category: productData.category,
@@ -1458,77 +1457,60 @@
             localStorage.setItem(CONTACT_KEY, JSON.stringify(contactState));
         }
 
-        function openImageDatabase() {
-            if (!('indexedDB' in window)) return Promise.resolve(null);
-            if (imageDatabasePromise) return imageDatabasePromise;
-
-            imageDatabasePromise = new Promise((resolve, reject) => {
-                const request = indexedDB.open(IMAGE_DB_NAME, 1);
-
-                request.onupgradeneeded = () => {
-                    const database = request.result;
-                    if (!database.objectStoreNames.contains(IMAGE_STORE_NAME)) {
-                        database.createObjectStore(IMAGE_STORE_NAME);
-                    }
-                };
-
-                request.onsuccess = () => resolve(request.result);
-                request.onerror = () => reject(request.error);
-            }).catch(error => {
-                console.error('No se pudo abrir IndexedDB para las imagenes.', error);
-                return null;
-            });
-
-            return imageDatabasePromise;
-        }
-
-        async function getStoredImage(key) {
-            const database = await openImageDatabase();
-            if (!database) return '';
-
-            return new Promise((resolve, reject) => {
-                const transaction = database.transaction(IMAGE_STORE_NAME, 'readonly');
-                const request = transaction.objectStore(IMAGE_STORE_NAME).get(key);
-                request.onsuccess = () => resolve(request.result || '');
-                request.onerror = () => reject(request.error);
-            }).catch(error => {
-                console.error('No se pudo leer una imagen guardada.', error);
-                return '';
-            });
-        }
-
-        async function setStoredImage(key, imageUrl) {
-            const database = await openImageDatabase();
-            if (!database) throw new Error('IndexedDB no esta disponible.');
-
-            return new Promise((resolve, reject) => {
-                const transaction = database.transaction(IMAGE_STORE_NAME, 'readwrite');
-                transaction.objectStore(IMAGE_STORE_NAME).put(imageUrl, key);
-                transaction.oncomplete = () => resolve();
-                transaction.onerror = () => reject(transaction.error);
-            });
-        }
-
-        async function removeStoredImage(key) {
-            const database = await openImageDatabase();
-            if (!database) return;
-
-            return new Promise((resolve, reject) => {
-                const transaction = database.transaction(IMAGE_STORE_NAME, 'readwrite');
-                transaction.objectStore(IMAGE_STORE_NAME).delete(key);
-                transaction.oncomplete = () => resolve();
-                transaction.onerror = () => reject(transaction.error);
-            }).catch(error => {
-                console.error('No se pudo eliminar una imagen guardada.', error);
-            });
-        }
-
         function getCatalogImageKey(productId) {
             return 'catalog:' + productId;
         }
 
         function getPromoImageKey() {
             return 'promo:image';
+        }
+
+        async function fetchImageMap() {
+            try {
+                const response = await fetch(IMAGE_MAP_URL + '?t=' + Date.now(), { cache: 'no-store' });
+                if (!response.ok) return {};
+                return await response.json();
+            } catch (error) {
+                console.error('No se pudo cargar el mapa compartido de imagenes.', error);
+                return {};
+            }
+        }
+
+        async function uploadImageToServer(file, key) {
+            const formData = new FormData();
+            formData.append('password', ADMIN_PASSWORD);
+            formData.append('key', key);
+            formData.append('image', file);
+
+            const response = await fetch(IMAGE_UPLOAD_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok || !result.ok || !result.url) {
+                throw new Error(result.message || 'No se pudo subir la imagen al servidor.');
+            }
+
+            return result.url;
+        }
+
+        async function deleteImageFromServer(key) {
+            const response = await fetch(IMAGE_DELETE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    password: ADMIN_PASSWORD,
+                    key
+                })
+            });
+
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok || !result.ok) {
+                throw new Error(result.message || 'No se pudo quitar la imagen del servidor.');
+            }
         }
 
         function isAdminEnabled() {
@@ -1650,32 +1632,27 @@
                 const [file] = event.target.files || [];
                 if (!file) return;
 
-                const reader = new FileReader();
-                reader.onload = async loadEvent => {
-                    const imageUrl = loadEvent.target.result;
+                try {
+                    const imageUrl = await uploadImageToServer(file, getCatalogImageKey(productId));
                     catalogState[productId].imagen = imageUrl;
                     applyCardImage(card, imageUrl);
-
-                    try {
-                        await setStoredImage(getCatalogImageKey(productId), imageUrl);
-                        saveCatalog();
-                    } catch (error) {
-                        catalogState[productId].imagen = '';
-                        applyCardImage(card, '');
-                        console.error('No se pudo guardar la imagen del producto.', error);
-                        alert('No se pudo guardar esta imagen en el navegador. Prueba con una imagen mas liviana o vuelve a intentarlo.');
-                    }
-                };
-                reader.readAsDataURL(file);
+                } catch (error) {
+                    console.error('No se pudo guardar la imagen del producto.', error);
+                    alert(error.message || 'No se pudo subir esta imagen al servidor.');
+                }
             });
 
             removeButton.addEventListener('click', async () => {
                 if (!isAdminEnabled()) return;
-                catalogState[productId].imagen = '';
-                applyCardImage(card, '');
-                input.value = '';
-                saveCatalog();
-                await removeStoredImage(getCatalogImageKey(productId));
+                try {
+                    await deleteImageFromServer(getCatalogImageKey(productId));
+                    catalogState[productId].imagen = '';
+                    applyCardImage(card, '');
+                    input.value = '';
+                } catch (error) {
+                    console.error('No se pudo quitar la imagen del producto.', error);
+                    alert(error.message || 'No se pudo quitar esta imagen del servidor.');
+                }
             });
         }
 
@@ -1802,36 +1779,32 @@
             });
         });
 
-        document.getElementById('promo-image-input').addEventListener('change', event => {
+        document.getElementById('promo-image-input').addEventListener('change', async event => {
             if (!isAdminEnabled()) return;
             const [file] = event.target.files || [];
             if (!file) return;
 
-            const reader = new FileReader();
-            reader.onload = async loadEvent => {
-                promoState.image = loadEvent.target.result;
-                applyPromoImage(promoState.image);
-
-                try {
-                    await setStoredImage(getPromoImageKey(), promoState.image);
-                    savePromo();
-                } catch (error) {
-                    promoState.image = '';
-                    applyPromoImage('');
-                    console.error('No se pudo guardar la imagen promocional.', error);
-                    alert('No se pudo guardar esta imagen en el navegador. Prueba con una imagen mas liviana o vuelve a intentarlo.');
-                }
-            };
-            reader.readAsDataURL(file);
+            try {
+                const imageUrl = await uploadImageToServer(file, getPromoImageKey());
+                promoState.image = imageUrl;
+                applyPromoImage(imageUrl);
+            } catch (error) {
+                console.error('No se pudo guardar la imagen promocional.', error);
+                alert(error.message || 'No se pudo subir esta imagen al servidor.');
+            }
         });
 
         document.getElementById('promo-remove-image').addEventListener('click', async () => {
             if (!isAdminEnabled()) return;
-            promoState.image = '';
-            applyPromoImage('');
-            document.getElementById('promo-image-input').value = '';
-            savePromo();
-            await removeStoredImage(getPromoImageKey());
+            try {
+                await deleteImageFromServer(getPromoImageKey());
+                promoState.image = '';
+                applyPromoImage('');
+                document.getElementById('promo-image-input').value = '';
+            } catch (error) {
+                console.error('No se pudo quitar la imagen promocional.', error);
+                alert(error.message || 'No se pudo quitar esta imagen del servidor.');
+            }
         });
 
         document.getElementById('open-admin').addEventListener('click', openAdminPanel);
@@ -1866,6 +1839,7 @@
 
         async function initializeEditorState() {
             const savedCatalog = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            const imageMap = await fetchImageMap();
 
             for (const [productId, productData] of Object.entries(savedCatalog)) {
                 let card = document.querySelector('[data-product="' + productId + '"]');
@@ -1892,22 +1866,11 @@
                     catalogState[productId].precio = productData.precio;
                 }
 
-                const storedImage = await getStoredImage(getCatalogImageKey(productId));
-                const legacyImage = productData.imagen || '';
-                const imageUrl = storedImage || legacyImage;
+                const imageUrl = imageMap[getCatalogImageKey(productId)] || '';
 
                 if (imageUrl) {
                     catalogState[productId].imagen = imageUrl;
                     applyCardImage(card, imageUrl);
-                }
-
-                if (legacyImage && !storedImage) {
-                    try {
-                        await setStoredImage(getCatalogImageKey(productId), legacyImage);
-                        saveCatalog();
-                    } catch (error) {
-                        console.error('No se pudo migrar una imagen antigua del catalogo.', error);
-                    }
                 }
             }
 
@@ -1922,21 +1885,10 @@
                 promoState.description = savedPromo.description;
             }
 
-            const storedPromoImage = await getStoredImage(getPromoImageKey());
-            const legacyPromoImage = savedPromo.image || '';
-            const promoImage = storedPromoImage || legacyPromoImage;
+            const promoImage = imageMap[getPromoImageKey()] || '';
             if (promoImage) {
                 promoState.image = promoImage;
                 applyPromoImage(promoImage);
-            }
-
-            if (legacyPromoImage && !storedPromoImage) {
-                try {
-                    await setStoredImage(getPromoImageKey(), legacyPromoImage);
-                    savePromo();
-                } catch (error) {
-                    console.error('No se pudo migrar una imagen antigua de la promocion.', error);
-                }
             }
 
             const savedContact = JSON.parse(localStorage.getItem(CONTACT_KEY) || '{}');
