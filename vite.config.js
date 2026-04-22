@@ -8,18 +8,6 @@ function copyServerFiles() {
     closeBundle() {
       const rootDir = process.cwd()
       const outDir = path.join(rootDir, 'dist')
-      const filesToCopy = [
-        'upload-image.php',
-        'delete-image.php'
-      ]
-
-      filesToCopy.forEach(file => {
-        const source = path.join(rootDir, file)
-        const destination = path.join(outDir, file)
-        if (fs.existsSync(source)) {
-          fs.copyFileSync(source, destination)
-        }
-      })
 
       const imageDir = path.join(rootDir, 'img')
       const imageDestination = path.join(outDir, 'img')

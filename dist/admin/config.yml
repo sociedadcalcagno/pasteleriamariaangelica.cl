@@ -1,0 +1,52 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "img/uploads"
+public_folder: "/img/uploads"
+
+collections:
+  - name: "site"
+    label: "Contenido Sitio"
+    files:
+      - name: "content"
+        label: "Contenido principal"
+        file: "public/data/site-content.json"
+        fields:
+          - label: "Contacto"
+            name: "contact"
+            widget: "object"
+            fields:
+              - { label: "Telefono", name: "phone", widget: "string" }
+          - label: "Promocion"
+            name: "promo"
+            widget: "object"
+            fields:
+              - { label: "Titulo", name: "title", widget: "string" }
+              - { label: "Descripcion", name: "description", widget: "text" }
+              - { label: "Imagen", name: "image", widget: "image", required: false }
+          - label: "Productos"
+            name: "products"
+            widget: "list"
+            summary: "{{fields.nombre}}"
+            fields:
+              - { label: "ID", name: "id", widget: "string", hint: "Usa minusculas y guiones. Ej: torta-moka" }
+              - label: "Categoria"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Tortas", value: "tortas" }
+                  - { label: "Salados", value: "salados" }
+                  - { label: "Especialidades", value: "especialidades" }
+              - { label: "Nombre", name: "nombre", widget: "string" }
+              - { label: "Precio", name: "precio", widget: "string" }
+              - { label: "Imagen", name: "image", widget: "image", required: false }
+              - { label: "Etiqueta", name: "badge", widget: "string", required: false }
+              - { label: "Nota", name: "note", widget: "string", required: false }
+              - label: "Tipo de nota"
+                name: "noteType"
+                widget: "select"
+                required: false
+                options:
+                  - { label: "Descripcion", value: "caption" }
+                  - { label: "Unidad", value: "unit" }
