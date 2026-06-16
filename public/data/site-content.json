@@ -1,11 +1,17 @@
 {
   "contact": {
-    "phone": "+56 9 9538 7455"
+    "phone": "22 55 25 574",
+    "whatsapp": "+56 9 9538 7455"
   },
   "promo": {
     "title": "Tu mesa dulce tambien puede comunicar marca y carino.",
     "description": "Haz clic aqui para cambiar este texto. Usa este espacio para destacar una promo, una temporada o un producto especial con una imagen propia.",
     "image": ""
+  },
+  "showcase": {
+    "tortas": ["", ""],
+    "salados": ["", ""],
+    "especialidades": ["", ""]
   },
   "products": [
     {
@@ -13,7 +19,7 @@
       "category": "tortas",
       "nombre": "Torta Grande de Milhoja",
       "precio": "$65.000",
-      "image": "/img/tortamilhojas.jpeg",
+      "image": "img/tortamilhojas.jpeg",
       "badge": "Milhoja",
       "note": "Una opcion generosa para mesas familiares y celebraciones amplias.",
       "noteType": "caption"
@@ -23,7 +29,7 @@
       "category": "tortas",
       "nombre": "Torta Mediana de Milhoja",
       "precio": "$55.000",
-      "image": "/img/Torta Mediana de Milhoja.jpeg",
+      "image": "img/Torta Mediana de Milhoja.jpeg",
       "badge": "Milhoja",
       "note": "Equilibrio perfecto entre presencia, sabor y practicidad.",
       "noteType": "caption"
@@ -33,7 +39,7 @@
       "category": "tortas",
       "nombre": "Torta Chica de Milhoja",
       "precio": "$45.000",
-      "image": "/img/Torta Chica de Milhoja.jpeg",
+      "image": "img/Torta Chica de Milhoja.jpeg",
       "badge": "Milhoja",
       "note": "Pensada para encuentros intimos con terminacion delicada.",
       "noteType": "caption"
@@ -43,7 +49,7 @@
       "category": "tortas",
       "nombre": "Pompadour Grande",
       "precio": "$70.000",
-      "image": "/img/Pompadour Grande.jpeg",
+      "image": "img/Pompadour Grande.jpeg",
       "badge": "Favorita",
       "note": "Presentacion protagonista para celebraciones memorables.",
       "noteType": "caption"
@@ -53,7 +59,7 @@
       "category": "tortas",
       "nombre": "Pompadour Mediana",
       "precio": "$60.000",
-      "image": "/img/Pompadour Mediana.jpeg",
+      "image": "img/Pompadour Mediana.jpeg",
       "badge": "Pompadour",
       "note": "Un formato elegante para reuniones y celebraciones medianas.",
       "noteType": "caption"
@@ -63,7 +69,7 @@
       "category": "salados",
       "nombre": "Canapes",
       "precio": "$50.000",
-      "image": "/img/canapes.jpeg",
+      "image": "img/canapes.jpeg",
       "badge": "Cocktail",
       "note": "x 100 unid.",
       "noteType": "unit"
@@ -73,7 +79,7 @@
       "category": "salados",
       "nombre": "Empanaditas de Cocktail de Pino y Queso",
       "precio": "$40.000",
-      "image": "/img/Empanaditas de Cocktail de Pino y Queso.jpeg",
+      "image": "img/Empanaditas de Cocktail de Pino y Queso.jpeg",
       "badge": "Cocktail",
       "note": "x 100 unid.",
       "noteType": "unit"
@@ -83,7 +89,7 @@
       "category": "salados",
       "nombre": "Empanaditas de Pino",
       "precio": "$40.000",
-      "image": "/img/Empanaditas de Pino.jpeg",
+      "image": "img/Empanaditas de Pino.jpeg",
       "badge": "Tradicional",
       "note": "x 100 unid.",
       "noteType": "unit"
@@ -93,7 +99,7 @@
       "category": "salados",
       "nombre": "Peti Buche",
       "precio": "$40.000",
-      "image": "/img/Peti Buche.jpeg",
+      "image": "img/Peti Buche.jpeg",
       "badge": "Clasico",
       "note": "x 100 unid.",
       "noteType": "unit"
@@ -103,7 +109,7 @@
       "category": "salados",
       "nombre": "Choricillo en Masa",
       "precio": "$40.000",
-      "image": "/img/Choricillo en Masa.jpeg",
+      "image": "img/Choricillo en Masa.jpeg",
       "badge": "Salado",
       "note": "x 100 unid.",
       "noteType": "unit"

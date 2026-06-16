@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="/app/pasteleria/">
     <title>Pasteleria Maria Angelica Espina</title>
     <meta name="description" content="Pasteleria Maria Angelica Espina. Tortas, bocados dulces y salados para celebraciones familiares, empresas y eventos especiales.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -597,6 +598,70 @@
             display: flex;
         }
 
+        .category-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .showcase-add {
+            display: none;
+            justify-content: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .admin-enabled .showcase-add {
+            display: flex;
+        }
+
+        .showcase-slot {
+            min-height: 180px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid rgba(160, 79, 56, 0.12);
+            background:
+                linear-gradient(180deg, rgba(76, 52, 40, 0.06), rgba(76, 52, 40, 0.18)),
+                linear-gradient(145deg, #f5dcc7, #dfaa7a);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .showcase-slot.empty::after {
+            content: 'Agrega imagenes a esta vitrina';
+            position: absolute;
+            inset: auto 14px 14px 14px;
+            color: rgba(73, 45, 35, 0.72);
+            font-weight: 700;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .showcase-tools {
+            display: none;
+            gap: 8px;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 2;
+        }
+
+        .admin-enabled .showcase-tools {
+            display: flex;
+        }
+
+        .showcase-empty {
+            display: grid;
+            min-height: 160px;
+            place-items: center;
+            border: 1px dashed rgba(160, 79, 56, 0.28);
+            border-radius: 22px;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.48);
+            text-align: center;
+            padding: 18px;
+        }
+
         .add-product-button {
             display: inline-flex;
         }
@@ -655,6 +720,40 @@
             justify-content: space-between;
             gap: 10px;
             padding: 14px;
+        }
+
+        .media-counter {
+            position: absolute;
+            left: 14px;
+            bottom: 14px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(255, 250, 245, 0.88);
+            color: var(--brand-strong);
+            font-size: 0.82rem;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(53, 28, 22, 0.12);
+            display: none;
+        }
+
+        .media-nav {
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+            display: none;
+            gap: 6px;
+        }
+
+        .media-nav button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 0;
+            background: rgba(255, 250, 245, 0.9);
+            color: var(--brand-strong);
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(53, 28, 22, 0.12);
         }
 
         .product-badge {
@@ -779,7 +878,8 @@
             z-index: 20;
         }
 
-        .admin-panel.open {
+        .admin-panel.open,
+        .admin-panel:target {
             display: flex;
         }
 
@@ -869,6 +969,10 @@
                 justify-content: flex-start;
             }
 
+            .category-showcase {
+                grid-template-columns: 1fr;
+            }
+
             .hero-card,
             .promo-copy,
             .story-card,
@@ -913,10 +1017,16 @@
                 </div>
             </div>
 
+            <a class="admin-link" href="#admin-panel" id="open-admin">Acceso</a>
+
             <div class="top-actions">
                 <div class="contact-chip">
                     <span class="contact-label">Telefono de contacto</span>
-                    <span class="contact-phone editable" data-scope="contact" data-field="phone" data-contact-phone>+56 9 9538 7455</span>
+                    <span class="contact-phone" data-scope="contact" data-field="phone" data-contact-phone>22 55 25 574</span>
+                </div>
+                <div class="contact-chip">
+                    <span class="contact-label">WhatsApp ventas</span>
+                    <span class="contact-phone editable" data-scope="contact" data-field="whatsapp" data-whatsapp-phone>+56 9 9538 7455</span>
                 </div>
                 <a class="social-link" href="https://wa.me/56995387455" target="_blank" rel="noreferrer" aria-label="WhatsApp" data-whatsapp-link>
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.94A9.8 9.8 0 0 0 12.03 2C6.52 2 2.03 6.48 2.03 12c0 1.77.46 3.5 1.34 5.02L2 22l5.11-1.34A9.95 9.95 0 0 0 12.03 22c5.51 0 9.97-4.48 9.97-10 0-2.67-1.04-5.18-2.95-7.06ZM12.03 20.3a8.25 8.25 0 0 1-4.21-1.15l-.3-.18-3.03.8.81-2.95-.2-.31A8.2 8.2 0 0 1 3.73 12c0-4.58 3.72-8.3 8.3-8.3 2.22 0 4.31.86 5.87 2.43A8.24 8.24 0 0 1 20.33 12c0 4.58-3.72 8.3-8.3 8.3Zm4.55-6.23c-.25-.12-1.49-.74-1.72-.82-.23-.08-.4-.12-.57.12-.17.25-.65.82-.8.99-.15.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.24-.73-.65-1.22-1.46-1.36-1.71-.14-.25-.01-.38.1-.5.11-.11.25-.29.37-.43.12-.15.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.57-1.37-.78-1.88-.21-.49-.42-.42-.57-.42h-.49c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.04 0 1.2.88 2.36 1 2.53.12.17 1.73 2.65 4.19 3.71.58.25 1.04.4 1.39.51.58.18 1.1.15 1.52.09.46-.07 1.49-.61 1.7-1.2.21-.59.21-1.1.15-1.2-.06-.1-.23-.16-.48-.29Z"/></svg>
@@ -926,7 +1036,7 @@
                 </a>
                 <a class="cta-link" href="https://wa.me/56995387455?text=Hola%20Pasteleria%20Maria%20Angelica%20Espina%2C%20quisiera%20hacer%20una%20consulta" target="_blank" rel="noreferrer" data-whatsapp-link data-whatsapp-message="Hola Pasteleria Maria Angelica Espina, quisiera hacer una consulta">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M19.05 4.94A9.8 9.8 0 0 0 12.03 2C6.52 2 2.03 6.48 2.03 12c0 1.77.46 3.5 1.34 5.02L2 22l5.11-1.34A9.95 9.95 0 0 0 12.03 22c5.51 0 9.97-4.48 9.97-10 0-2.67-1.04-5.18-2.95-7.06Z"/></svg>
-                    <span>WhatsApp <span data-contact-phone>+56 9 9538 7455</span></span>
+                    <span>WhatsApp <span data-whatsapp-phone>+56 9 9538 7455</span></span>
                 </a>
             </div>
         </header>
@@ -1011,7 +1121,7 @@
         </section>
 
         <div class="edit-hint admin-only block" id="edit-hint">
-            Haz clic sobre <strong>nombre, precio, telefono o textos promocionales</strong> para editarlos al instante. Tambien puedes subir una imagen por producto o para la promocion principal, agregar productos nuevos por categoria, y todo queda guardado en este navegador.
+            Haz clic sobre <strong>nombre, precio, telefono o textos promocionales</strong> para editarlos al instante. Tambien puedes subir una imagen por producto o para la promocion principal, agregar productos nuevos por categoria, y todo queda guardado en el sitio.
         </div>
 
         <section class="catalog">
@@ -1036,6 +1146,12 @@
                     <button class="ghost-button add-product-button" type="button" data-add-product>Agregar producto</button>
                 </div>
 
+                <div class="showcase-add">
+                    <label class="upload-button" for="showcase-tortas">Agregar imagenes a vitrina</label>
+                    <input class="hidden-input" id="showcase-tortas" type="file" accept="image/*" multiple data-showcase-input>
+                </div>
+                <div class="category-showcase" data-showcase="tortas"></div>
+
                 <div class="products-grid">
                     <article class="product-card" data-product="torta-grande-milhoja">
                         <div class="product-media" data-media>
@@ -1044,6 +1160,8 @@
                                 <label class="upload-button" for="upload-torta-grande-milhoja">Imagen</label>
                                 <button class="ghost-button" type="button" data-remove-image>Quitar</button>
                             </div>
+                            <div class="media-counter" data-media-counter></div>
+                            <div class="media-nav" data-media-nav><button type="button" data-image-prev>&lt;</button><button type="button" data-image-next>&gt;</button></div>
                             <input class="hidden-input image-input" id="upload-torta-grande-milhoja" type="file" accept="image/*">
                         </div>
                         <div class="product-body">
@@ -1134,6 +1252,12 @@
                 <div class="category-admin">
                     <button class="ghost-button add-product-button" type="button" data-add-product>Agregar producto</button>
                 </div>
+
+                <div class="showcase-add">
+                    <label class="upload-button" for="showcase-salados">Agregar imagenes a vitrina</label>
+                    <input class="hidden-input" id="showcase-salados" type="file" accept="image/*" multiple data-showcase-input>
+                </div>
+                <div class="category-showcase" data-showcase="salados"></div>
 
                 <div class="products-grid">
                     <article class="product-card" data-product="canapes">
@@ -1233,6 +1357,12 @@
                 <div class="category-admin">
                     <button class="ghost-button add-product-button" type="button" data-add-product>Agregar producto</button>
                 </div>
+
+                <div class="showcase-add">
+                    <label class="upload-button" for="showcase-especialidades">Agregar imagenes a vitrina</label>
+                    <input class="hidden-input" id="showcase-especialidades" type="file" accept="image/*" multiple data-showcase-input>
+                </div>
+                <div class="category-showcase" data-showcase="especialidades"></div>
 
                 <div class="products-grid">
                     <article class="product-card" data-product="brocheta-lomo">
@@ -1366,7 +1496,6 @@
                 <p>Pasteleria con alma familiar, imagen cuidada y una propuesta lista para seguir creciendo en canales digitales, catalogos y redes.</p>
             </div>
             <div class="top-actions">
-                <a class="admin-link" href="./admin/">Panel de contenido</a>
                 <a class="social-link" href="https://wa.me/56995387455" target="_blank" rel="noreferrer" aria-label="WhatsApp" data-whatsapp-link>
                     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.05 4.94A9.8 9.8 0 0 0 12.03 2C6.52 2 2.03 6.48 2.03 12c0 1.77.46 3.5 1.34 5.02L2 22l5.11-1.34A9.95 9.95 0 0 0 12.03 22c5.51 0 9.97-4.48 9.97-10 0-2.67-1.04-5.18-2.95-7.06Z"/></svg>
                 </a>
@@ -1381,12 +1510,12 @@
     <div class="admin-panel" id="admin-panel" aria-hidden="true">
         <div class="admin-dialog">
             <h3>Acceso de administracion</h3>
-            <p>Ingresa la clave para habilitar la edicion del contenido, el telefono de contacto y la carga de imagenes en este navegador.</p>
+            <p>Ingresa la clave para habilitar la edicion del contenido, el telefono de contacto y la carga de imagenes para todo el sitio.</p>
             <label for="admin-password">Clave</label>
             <input id="admin-password" type="password" autocomplete="current-password" placeholder="Escribe la clave">
             <div class="admin-dialog-actions">
                 <button class="cta-link" type="button" id="admin-submit">Entrar</button>
-                <button class="ghost-button" type="button" id="admin-close" style="display:inline-flex;">Cerrar</button>
+                <a class="ghost-button" href="#" id="admin-close" style="display:inline-flex;">Cerrar</a>
                 <button class="ghost-button" type="button" id="admin-logout" style="display:inline-flex;">Salir</button>
             </div>
             <div class="admin-message" id="admin-message"></div>
@@ -1395,12 +1524,11 @@
     </div>
 
     <script>
-        const STORAGE_KEY = 'pasteleria_maria_angelica_catalogo';
-        const PROMO_KEY = 'pasteleria_maria_angelica_promo';
-        const CONTACT_KEY = 'pasteleria_maria_angelica_contacto';
-        const ADMIN_SESSION_KEY = 'pasteleria_maria_angelica_admin';
-        const SITE_CONTENT_URL = './data/site-content.json';
-        const ADMIN_PASSWORD = 'MariaEspina2026';
+        const CONTENT_URL = './api/content.php';
+        const LOGIN_URL = './api/login.php';
+        const LOGOUT_URL = './api/logout.php';
+        const UPLOAD_URL = './api/upload-image.php';
+        const DELETE_IMAGE_URL = './api/delete-image.php';
         const initialCards = Array.from(document.querySelectorAll('.product-card'));
         const categories = Array.from(document.querySelectorAll('.category'));
         const adminPanel = document.getElementById('admin-panel');
@@ -1409,15 +1537,25 @@
         const adminStatus = document.getElementById('admin-status');
         const adminLogoutButton = document.getElementById('admin-logout');
         const toolbarLogoutButton = document.getElementById('toolbar-logout');
+        const openAdminButton = document.getElementById('open-admin');
+        let saveTimeout = null;
+        let isSaving = false;
 
-        const catalogState = initialCards.reduce((acc, card) => {
+        const catalogState = initialCards.reduce((acc, card, index) => {
             const productId = card.dataset.product;
             const category = card.closest('.category')?.dataset.category || '';
             acc[productId] = {
+                id: productId,
                 category,
                 nombre: card.querySelector('[data-field="nombre"]').textContent.trim(),
                 precio: card.querySelector('[data-field="precio"]').textContent.trim(),
-                imagen: ''
+                image: '',
+                images: [],
+                currentImageIndex: 0,
+                badge: card.querySelector('.product-badge')?.textContent.trim() || 'Nuevo',
+                note: card.querySelector('.product-unit, .product-caption')?.textContent.trim() || '',
+                noteType: card.querySelector('.product-unit') ? 'unit' : 'caption',
+                sortOrder: index
             };
             return acc;
         }, {});
@@ -1428,63 +1566,35 @@
             image: ''
         };
 
-        const contactState = {
-            phone: document.querySelector('[data-scope="contact"][data-field="phone"]').textContent.trim()
+        const categoryShowcaseState = {
+            tortas: [],
+            salados: [],
+            especialidades: []
         };
 
-        function getCatalogStoragePayload() {
-            return Object.fromEntries(Object.entries(catalogState).map(([productId, productData]) => [productId, {
-                category: productData.category,
-                nombre: productData.nombre,
-                precio: productData.precio
-            }]));
-        }
-
-        function saveCatalog() {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(getCatalogStoragePayload()));
-        }
-
-        function savePromo() {
-            localStorage.setItem(PROMO_KEY, JSON.stringify({
-                title: promoState.title,
-                description: promoState.description
-            }));
-        }
-
-        function saveContact() {
-            localStorage.setItem(CONTACT_KEY, JSON.stringify(contactState));
-        }
-
-        async function fetchSiteContent() {
-            try {
-                const response = await fetch(SITE_CONTENT_URL + '?t=' + Date.now(), { cache: 'no-store' });
-                if (!response.ok) return {};
-                return await response.json();
-            } catch (error) {
-                console.error('No se pudo cargar el contenido compartido del sitio.', error);
-                return {};
-            }
-        }
+        const contactState = {
+            phone: document.querySelector('[data-scope="contact"][data-field="phone"]').textContent.trim(),
+            whatsapp: document.querySelector('[data-whatsapp-phone]')?.textContent.trim() || '+56 9 9538 7455'
+        };
 
         function isAdminEnabled() {
-            return sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
+            return document.body.classList.contains('admin-enabled');
         }
 
         function setAdminEnabled(enabled) {
             if (enabled) {
-                sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
                 document.body.classList.add('admin-enabled');
-                adminStatus.textContent = 'Modo administracion activo en este navegador.';
+                adminStatus.textContent = 'Modo administracion activo para todo el sitio.';
                 adminLogoutButton.style.display = 'inline-flex';
             } else {
-                sessionStorage.removeItem(ADMIN_SESSION_KEY);
                 document.body.classList.remove('admin-enabled');
                 adminStatus.textContent = '';
                 adminLogoutButton.style.display = 'none';
             }
         }
 
-        function openAdminPanel() {
+        function openAdminPanel(event) {
+            event?.preventDefault();
             adminPanel.classList.add('open');
             adminPanel.setAttribute('aria-hidden', 'false');
             adminMessage.textContent = '';
@@ -1495,6 +1605,9 @@
         function closeAdminPanel() {
             adminPanel.classList.remove('open');
             adminPanel.setAttribute('aria-hidden', 'true');
+            if (window.location.hash === '#admin-panel') {
+                history.pushState('', document.title, window.location.pathname + window.location.search);
+            }
         }
 
         function normalizePrice(value) {
@@ -1505,12 +1618,57 @@
             return looksNumeric ? '$' + Number(digits).toLocaleString('es-CL') : raw;
         }
 
-        function applyCardImage(card, imageUrl) {
+        function normalizeProductImages(productData) {
+            if (Array.isArray(productData.images)) {
+                return productData.images.filter(Boolean);
+            }
+            return productData.image ? [productData.image] : [];
+        }
+
+        function ensureProductMediaControls(card) {
             const media = card.querySelector('[data-media]');
+            if (!media) return {};
+
+            let counter = media.querySelector('[data-media-counter]');
+            if (!counter) {
+                counter = document.createElement('div');
+                counter.className = 'media-counter';
+                counter.dataset.mediaCounter = '';
+                media.appendChild(counter);
+            }
+
+            let nav = media.querySelector('[data-media-nav]');
+            if (!nav) {
+                nav = document.createElement('div');
+                nav.className = 'media-nav';
+                nav.dataset.mediaNav = '';
+                nav.innerHTML = '<button type="button" data-image-prev>&lt;</button><button type="button" data-image-next>&gt;</button>';
+                media.appendChild(nav);
+            }
+
+            return { media, counter, nav };
+        }
+
+        function applyCardImage(card, productId) {
+            const product = catalogState[productId];
+            const images = product?.images || [];
+            const imageUrl = images[product.currentImageIndex || 0] || '';
+            const { media, counter, nav } = ensureProductMediaControls(card);
+            if (!media) return;
+
             if (imageUrl) {
                 media.style.backgroundImage = 'linear-gradient(180deg, rgba(76, 52, 40, 0.08), rgba(76, 52, 40, 0.28)), url("' + imageUrl + '")';
             } else {
                 media.style.backgroundImage = '';
+            }
+
+            if (counter) {
+                counter.style.display = images.length > 1 ? 'block' : 'none';
+                counter.textContent = images.length ? ((product.currentImageIndex || 0) + 1) + ' / ' + images.length : '';
+            }
+
+            if (nav) {
+                nav.style.display = images.length > 1 ? 'flex' : 'none';
             }
         }
 
@@ -1523,6 +1681,42 @@
             }
         }
 
+        function renderShowcase(categoryKey) {
+            const showcase = document.querySelector('[data-showcase="' + categoryKey + '"]');
+            if (!showcase) return;
+
+            const images = categoryShowcaseState[categoryKey] || [];
+            if (!images.length) {
+                showcase.innerHTML = '<div class="showcase-empty">Esta vitrina aun no tiene imagenes.</div>';
+                return;
+            }
+
+            showcase.innerHTML = images.map((imageUrl, index) => (
+                '<div class="showcase-slot" style="background-image: linear-gradient(180deg, rgba(76, 52, 40, 0.08), rgba(76, 52, 40, 0.24)), url(&quot;' + escapeHtml(imageUrl) + '&quot;)">' +
+                    '<div class="showcase-tools">' +
+                        '<button class="ghost-button" type="button" data-remove-showcase="' + index + '">Quitar</button>' +
+                    '</div>' +
+                '</div>'
+            )).join('');
+
+            showcase.querySelectorAll('[data-remove-showcase]').forEach(button => {
+                button.addEventListener('click', async () => {
+                    if (!isAdminEnabled()) return;
+
+                    const index = Number(button.dataset.removeShowcase || 0);
+                    const [currentPath] = categoryShowcaseState[categoryKey].splice(index, 1);
+                    renderShowcase(categoryKey);
+
+                    try {
+                        await deleteImage(currentPath || '');
+                        await persistContent();
+                    } catch (error) {
+                        adminMessage.textContent = error.message || 'No se pudo quitar la imagen de vitrina.';
+                    }
+                });
+            });
+        }
+
         function getWhatsappNumber(phone) {
             const digits = phone.replace(/\D/g, '');
             if (!digits) return '';
@@ -1531,11 +1725,15 @@
             return digits;
         }
 
-        function applyContactInfo(phone) {
-            const whatsappNumber = getWhatsappNumber(phone);
+        function applyContactInfo(phone, whatsapp) {
+            const whatsappNumber = getWhatsappNumber(whatsapp);
 
             document.querySelectorAll('[data-contact-phone]').forEach(element => {
                 element.textContent = phone;
+            });
+
+            document.querySelectorAll('[data-whatsapp-phone]').forEach(element => {
+                element.textContent = whatsapp;
             });
 
             document.querySelectorAll('[data-whatsapp-link]').forEach(link => {
@@ -1543,39 +1741,6 @@
                 const message = link.dataset.whatsappMessage;
                 link.href = message ? baseUrl + '?text=' + encodeURIComponent(message) : baseUrl;
             });
-        }
-
-        function applyProductData(card, productId, productData) {
-            const nameElement = card.querySelector('[data-field="nombre"]');
-            const priceElement = card.querySelector('[data-field="precio"]');
-            const badgeElement = card.querySelector('.product-badge');
-            const noteElement = card.querySelector('.product-unit, .product-caption');
-
-            if (productData.nombre && nameElement) {
-                nameElement.textContent = productData.nombre;
-                catalogState[productId].nombre = productData.nombre;
-            }
-
-            if (productData.precio && priceElement) {
-                priceElement.textContent = productData.precio;
-                catalogState[productId].precio = productData.precio;
-            }
-
-            if (badgeElement && productData.badge) {
-                badgeElement.textContent = productData.badge;
-            }
-
-            if (noteElement) {
-                if (productData.note) {
-                    noteElement.textContent = productData.note;
-                    noteElement.className = productData.noteType === 'unit' ? 'product-unit' : 'product-caption';
-                } else {
-                    noteElement.remove();
-                }
-            }
-
-            catalogState[productId].imagen = productData.image || '';
-            applyCardImage(card, productData.image || '');
         }
 
         function escapeHtml(value) {
@@ -1586,10 +1751,61 @@
                 .replace(/"/g, '&quot;');
         }
 
+        function applyProductData(card, productId, productData) {
+            const nameElement = card.querySelector('[data-field="nombre"]');
+            const priceElement = card.querySelector('[data-field="precio"]');
+            const badgeElement = card.querySelector('.product-badge');
+            let noteElement = card.querySelector('.product-unit, .product-caption');
+
+            if (!catalogState[productId]) {
+                catalogState[productId] = {
+                    id: productId,
+                    category: productData.category,
+                    nombre: '',
+                    precio: '',
+                    image: '',
+                    images: [],
+                    currentImageIndex: 0,
+                    badge: '',
+                    note: '',
+                    noteType: 'caption',
+                    sortOrder: Object.keys(catalogState).length
+                };
+            }
+
+            catalogState[productId].nombre = productData.nombre || '';
+            catalogState[productId].precio = productData.precio || '';
+            catalogState[productId].images = normalizeProductImages(productData);
+            catalogState[productId].image = catalogState[productId].images[0] || '';
+            catalogState[productId].currentImageIndex = Math.min(catalogState[productId].currentImageIndex || 0, Math.max(catalogState[productId].images.length - 1, 0));
+            catalogState[productId].badge = productData.badge || 'Nuevo';
+            catalogState[productId].note = productData.note || '';
+            catalogState[productId].noteType = productData.noteType || 'caption';
+            catalogState[productId].category = productData.category || catalogState[productId].category;
+
+            if (nameElement) nameElement.textContent = catalogState[productId].nombre;
+            if (priceElement) priceElement.textContent = catalogState[productId].precio;
+            if (badgeElement) badgeElement.textContent = catalogState[productId].badge;
+
+            if (catalogState[productId].note) {
+                if (!noteElement) {
+                    noteElement = document.createElement('span');
+                    card.querySelector('.product-body').appendChild(noteElement);
+                }
+                noteElement.className = catalogState[productId].noteType === 'unit' ? 'product-unit' : 'product-caption';
+                noteElement.textContent = catalogState[productId].note;
+            } else if (noteElement) {
+                noteElement.remove();
+            }
+
+            applyCardImage(card, productId);
+        }
+
         function createProductMarkup(productId, productData) {
             const imageInputId = 'upload-' + productId;
             const noteClass = productData.noteType === 'unit' ? 'product-unit' : 'product-caption';
             const noteMarkup = productData.note ? '<span class="' + noteClass + '">' + escapeHtml(productData.note) + '</span>' : '';
+
             return '<article class="product-card" data-product="' + productId + '">' +
                 '<div class="product-media" data-media>' +
                     '<div class="product-badge">' + escapeHtml(productData.badge || 'Nuevo') + '</div>' +
@@ -1597,6 +1813,8 @@
                         '<label class="upload-button" for="' + imageInputId + '">Imagen</label>' +
                         '<button class="ghost-button" type="button" data-remove-image>Quitar</button>' +
                     '</div>' +
+                    '<div class="media-counter" data-media-counter></div>' +
+                    '<div class="media-nav" data-media-nav><button type="button" data-image-prev>&lt;</button><button type="button" data-image-next>&gt;</button></div>' +
                     '<input class="hidden-input image-input" id="' + imageInputId + '" type="file" accept="image/*">' +
                 '</div>' +
                 '<div class="product-body">' +
@@ -1611,24 +1829,194 @@
             element.addEventListener('click', () => startInlineEdit(element));
         }
 
+        function buildPayload() {
+            const products = Object.values(catalogState)
+                .sort((left, right) => left.sortOrder - right.sortOrder)
+                .map(product => ({
+                    id: product.id,
+                    category: product.category,
+                    nombre: product.nombre,
+                    precio: product.precio,
+                    image: product.image || '',
+                    images: product.images || [],
+                    badge: product.badge || 'Nuevo',
+                    note: product.note || '',
+                    noteType: product.noteType || 'caption'
+                }));
+
+            return {
+                contact: {
+                    phone: contactState.phone,
+                    whatsapp: contactState.whatsapp
+                },
+                promo: {
+                    title: promoState.title,
+                    description: promoState.description,
+                    image: promoState.image || ''
+                },
+                showcase: categoryShowcaseState,
+                products
+            };
+        }
+
+        async function persistContent() {
+            if (!isAdminEnabled() || isSaving) return;
+
+            isSaving = true;
+            adminMessage.textContent = '';
+            adminStatus.textContent = 'Guardando cambios...';
+
+            try {
+                const formData = new URLSearchParams();
+                formData.append('payload', JSON.stringify(buildPayload()));
+                const response = await fetch(CONTENT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: formData.toString()
+                });
+
+                const result = await response.json().catch(() => ({}));
+                if (!response.ok || result.ok === false) {
+                    throw new Error(result.message || 'No se pudo guardar el contenido.');
+                }
+
+                adminStatus.textContent = 'Cambios guardados.';
+            } catch (error) {
+                adminMessage.textContent = error.message || 'No se pudo guardar el contenido.';
+                adminStatus.textContent = 'No se pudo guardar.';
+            } finally {
+                isSaving = false;
+            }
+        }
+
+        function scheduleSave() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(() => {
+                persistContent();
+            }, 250);
+        }
+
+        function saveCatalog() {
+            scheduleSave();
+        }
+
+        function savePromo() {
+            scheduleSave();
+        }
+
+        function saveContact() {
+            scheduleSave();
+        }
+
+        async function uploadImage(file, key) {
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('key', key);
+
+            const response = await fetch(UPLOAD_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok || result.ok === false || !result.url) {
+                throw new Error(result.message || 'No se pudo subir la imagen.');
+            }
+
+            return result.url;
+        }
+
+        async function deleteImage(path) {
+            if (!path) return;
+
+            const formData = new URLSearchParams();
+            formData.append('path', path);
+            const response = await fetch(DELETE_IMAGE_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: formData.toString()
+            });
+
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok || result.ok === false) {
+                throw new Error(result.message || 'No se pudo quitar la imagen.');
+            }
+        }
+
         function bindProductCard(card) {
             const productId = card.dataset.product;
             const input = card.querySelector('.image-input');
             const removeButton = card.querySelector('[data-remove-image]');
+            const { nav } = ensureProductMediaControls(card);
+            if (input) input.multiple = true;
+
+            card.querySelectorAll('.editable').forEach(bindEditable);
+
+            nav?.querySelector('[data-image-prev]')?.addEventListener('click', event => {
+                event.stopPropagation();
+                const product = catalogState[productId];
+                if (!product?.images?.length) return;
+                product.currentImageIndex = (product.currentImageIndex - 1 + product.images.length) % product.images.length;
+                applyCardImage(card, productId);
+            });
+
+            nav?.querySelector('[data-image-next]')?.addEventListener('click', event => {
+                event.stopPropagation();
+                const product = catalogState[productId];
+                if (!product?.images?.length) return;
+                product.currentImageIndex = (product.currentImageIndex + 1) % product.images.length;
+                applyCardImage(card, productId);
+            });
+
+            card.querySelector('[data-media]')?.addEventListener('click', event => {
+                if (event.target.closest('.media-tools') || event.target.closest('.media-nav')) return;
+                const product = catalogState[productId];
+                if (!product?.images || product.images.length < 2) return;
+                product.currentImageIndex = (product.currentImageIndex + 1) % product.images.length;
+                applyCardImage(card, productId);
+            });
 
             input.addEventListener('change', async event => {
                 if (!isAdminEnabled()) return;
-                const [file] = event.target.files || [];
-                if (!file) return;
+                const files = Array.from(event.target.files || []);
+                if (!files.length) return;
 
-                event.target.value = '';
-                alert('La subida de imagenes ahora se hace desde ./admin para que quede publicada para todos.');
+                try {
+                    for (const file of files) {
+                        const imageUrl = await uploadImage(file, productId);
+                        catalogState[productId].images.push(imageUrl);
+                    }
+                    catalogState[productId].image = catalogState[productId].images[0] || '';
+                    catalogState[productId].currentImageIndex = catalogState[productId].images.length - 1;
+                    applyCardImage(card, productId);
+                    await persistContent();
+                } catch (error) {
+                    adminMessage.textContent = error.message || 'No se pudo subir la imagen.';
+                } finally {
+                    input.value = '';
+                }
             });
 
             removeButton.addEventListener('click', async () => {
                 if (!isAdminEnabled()) return;
 
-                alert('Quita la imagen desde ./admin para que el cambio quede publicado para todos.');
+                const product = catalogState[productId];
+                const currentIndex = product.currentImageIndex || 0;
+                const [currentPath] = product.images.splice(currentIndex, 1);
+                product.currentImageIndex = Math.min(currentIndex, Math.max(product.images.length - 1, 0));
+                product.image = product.images[0] || '';
+                applyCardImage(card, productId);
+
+                try {
+                    await deleteImage(currentPath || '');
+                    await persistContent();
+                } catch (error) {
+                    adminMessage.textContent = error.message || 'No se pudo quitar la imagen.';
+                }
             });
         }
 
@@ -1640,11 +2028,8 @@
             grid.insertAdjacentHTML('beforeend', createProductMarkup(productId, productData));
 
             const card = grid.querySelector('[data-product="' + productId + '"]');
-            card.querySelectorAll('.editable').forEach(bindEditable);
             bindProductCard(card);
-
             applyProductData(card, productId, productData);
-
             return card;
         }
 
@@ -1655,10 +2040,17 @@
         function addProduct(categoryKey) {
             const productId = createProductId();
             const productData = {
+                id: productId,
                 category: categoryKey,
                 nombre: 'Nuevo producto',
                 precio: '$0',
-                imagen: ''
+                image: '',
+                images: [],
+                currentImageIndex: 0,
+                badge: 'Nuevo',
+                note: '',
+                noteType: 'caption',
+                sortOrder: Object.keys(catalogState).length
             };
 
             catalogState[productId] = productData;
@@ -1710,7 +2102,7 @@
 
                 if (scope === 'contact') {
                     contactState[field] = finalValue;
-                    applyContactInfo(finalValue);
+                    applyContactInfo(contactState.phone, contactState.whatsapp);
                     saveContact();
                     return;
                 }
@@ -1740,7 +2132,49 @@
             });
         }
 
-        document.querySelectorAll('.editable').forEach(bindEditable);
+        async function fetchContent() {
+            const response = await fetch(CONTENT_URL + '?t=' + Date.now(), { cache: 'no-store' });
+            if (!response.ok) {
+                throw new Error('No se pudo cargar el contenido del sitio.');
+            }
+            return response.json();
+        }
+
+        async function loginAdmin() {
+            try {
+                const formData = new URLSearchParams();
+                formData.append('password', adminPasswordInput.value);
+                const response = await fetch(LOGIN_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: formData.toString()
+                });
+                const result = await response.json().catch(() => ({}));
+
+                if (!response.ok || result.ok === false) {
+                    throw new Error(result.message || 'La clave no es correcta.');
+                }
+
+                setAdminEnabled(true);
+                closeAdminPanel();
+                adminStatus.textContent = 'Modo administracion activo para todo el sitio.';
+            } catch (error) {
+                adminMessage.textContent = error.message || 'La clave no es correcta.';
+            }
+        }
+
+        async function logoutAdmin() {
+            try {
+                await fetch(LOGOUT_URL, { method: 'POST' });
+            } catch (error) {
+                console.error(error);
+            }
+
+            setAdminEnabled(false);
+            closeAdminPanel();
+        }
 
         initialCards.forEach(card => {
             bindProductCard(card);
@@ -1751,6 +2185,31 @@
                 if (!isAdminEnabled()) return;
                 addProduct(category.dataset.category);
             });
+
+            category.querySelectorAll('[data-showcase-input]').forEach(input => {
+                input.addEventListener('change', async event => {
+                    if (!isAdminEnabled()) return;
+                    const files = Array.from(event.target.files || []);
+                    if (!files.length) return;
+
+                    const categoryKey = category.dataset.category;
+
+                    try {
+                        for (const file of files) {
+                            const imageUrl = await uploadImage(file, categoryKey + '-vitrina-' + Date.now());
+                            categoryShowcaseState[categoryKey].push(imageUrl);
+                        }
+                        renderShowcase(categoryKey);
+                        await persistContent();
+                    } catch (error) {
+                        adminMessage.textContent = error.message || 'No se pudo subir la imagen de vitrina.';
+                    } finally {
+                        event.target.value = '';
+                    }
+                });
+            });
+
+            renderShowcase(category.dataset.category);
         });
 
         document.getElementById('promo-image-input').addEventListener('change', async event => {
@@ -1758,41 +2217,43 @@
             const [file] = event.target.files || [];
             if (!file) return;
 
-            event.target.value = '';
-            alert('La imagen promocional ahora se edita desde ./admin para que quede publicada para todos.');
+            try {
+                const imageUrl = await uploadImage(file, 'promo');
+                promoState.image = imageUrl;
+                applyPromoImage(imageUrl);
+                await persistContent();
+            } catch (error) {
+                adminMessage.textContent = error.message || 'No se pudo subir la imagen promocional.';
+            } finally {
+                event.target.value = '';
+            }
         });
 
         document.getElementById('promo-remove-image').addEventListener('click', async () => {
             if (!isAdminEnabled()) return;
 
-            alert('Quita la imagen promocional desde ./admin para que el cambio quede publicado para todos.');
-        });
+            const currentPath = promoState.image || '';
+            promoState.image = '';
+            applyPromoImage('');
 
-        const adminCloseButton = document.getElementById('admin-close');
-        const adminLogoutTrigger = document.getElementById('admin-logout');
-
-        adminCloseButton?.addEventListener('click', closeAdminPanel);
-        adminLogoutTrigger?.addEventListener('click', () => {
-            setAdminEnabled(false);
-            closeAdminPanel();
-        });
-        toolbarLogoutButton.addEventListener('click', () => {
-            setAdminEnabled(false);
-        });
-        document.getElementById('admin-submit').addEventListener('click', () => {
-            if (adminPasswordInput.value === ADMIN_PASSWORD) {
-                setAdminEnabled(true);
-                closeAdminPanel();
-                return;
+            try {
+                await deleteImage(currentPath);
+                await persistContent();
+            } catch (error) {
+                adminMessage.textContent = error.message || 'No se pudo quitar la imagen promocional.';
             }
-
-            adminMessage.textContent = 'La clave no es correcta.';
         });
+
+        openAdminButton.addEventListener('click', openAdminPanel);
+        document.getElementById('admin-close').addEventListener('click', closeAdminPanel);
+        document.getElementById('admin-logout').addEventListener('click', logoutAdmin);
+        toolbarLogoutButton.addEventListener('click', logoutAdmin);
+        document.getElementById('admin-submit').addEventListener('click', loginAdmin);
 
         adminPasswordInput.addEventListener('keydown', event => {
             if (event.key === 'Enter') {
                 event.preventDefault();
-                document.getElementById('admin-submit').click();
+                loginAdmin();
             }
         });
 
@@ -1801,53 +2262,75 @@
         });
 
         async function initializeEditorState() {
-            const siteContent = await fetchSiteContent();
+            try {
+                const siteContent = await fetchContent();
 
-            if (siteContent.contact?.phone) {
-                contactState.phone = siteContent.contact.phone;
-            }
-
-            if (siteContent.promo?.title) {
-                document.querySelector('[data-scope="promo"][data-field="title"]').textContent = siteContent.promo.title;
-                promoState.title = siteContent.promo.title;
-            }
-
-            if (siteContent.promo?.description) {
-                document.querySelector('[data-scope="promo"][data-field="description"]').textContent = siteContent.promo.description;
-                promoState.description = siteContent.promo.description;
-            }
-
-            if (siteContent.promo?.image) {
-                promoState.image = siteContent.promo.image;
-                applyPromoImage(siteContent.promo.image);
-            }
-
-            const remoteProducts = Array.isArray(siteContent.products) ? siteContent.products : [];
-            remoteProducts.forEach(productData => {
-                if (!productData.id || !productData.category) return;
-
-                if (!catalogState[productData.id]) {
-                    catalogState[productData.id] = {
-                        category: productData.category,
-                        nombre: productData.nombre || 'Nuevo producto',
-                        precio: productData.precio || '$0',
-                        imagen: productData.image || ''
-                    };
+                if (siteContent.contact?.phone) {
+                    contactState.phone = siteContent.contact.phone;
                 }
 
-                let card = document.querySelector('[data-product="' + productData.id + '"]');
-                if (!card) {
-                    card = renderProductCard(productData.id, productData);
+                if (siteContent.contact?.whatsapp) {
+                    contactState.whatsapp = siteContent.contact.whatsapp;
                 }
 
-                if (card) {
-                    applyProductData(card, productData.id, productData);
+                if (siteContent.promo?.title) {
+                    document.querySelector('[data-scope="promo"][data-field="title"]').textContent = siteContent.promo.title;
+                    promoState.title = siteContent.promo.title;
                 }
-            });
 
-            applyContactInfo(contactState.phone);
-            sessionStorage.removeItem(ADMIN_SESSION_KEY);
-            setAdminEnabled(false);
+                if (siteContent.promo?.description) {
+                    document.querySelector('[data-scope="promo"][data-field="description"]').textContent = siteContent.promo.description;
+                    promoState.description = siteContent.promo.description;
+                }
+
+                promoState.image = siteContent.promo?.image || '';
+                applyPromoImage(promoState.image);
+
+                if (siteContent.showcase) {
+                    Object.keys(categoryShowcaseState).forEach(categoryKey => {
+                        const images = Array.isArray(siteContent.showcase[categoryKey]) ? siteContent.showcase[categoryKey] : [];
+                        categoryShowcaseState[categoryKey] = images.filter(Boolean);
+                        renderShowcase(categoryKey);
+                    });
+                }
+
+                const remoteProducts = Array.isArray(siteContent.products) ? siteContent.products : [];
+                remoteProducts.forEach((productData, index) => {
+                    if (!productData.id || !productData.category) return;
+
+                    productData.sortOrder = index;
+                    if (!catalogState[productData.id]) {
+                        catalogState[productData.id] = {
+                            id: productData.id,
+                            category: productData.category,
+                            nombre: productData.nombre || 'Nuevo producto',
+                            precio: productData.precio || '$0',
+                            image: productData.image || '',
+                            badge: productData.badge || 'Nuevo',
+                            note: productData.note || '',
+                            noteType: productData.noteType || 'caption',
+                            sortOrder: index
+                        };
+                    } else {
+                        catalogState[productData.id].sortOrder = index;
+                    }
+
+                    let card = document.querySelector('[data-product="' + productData.id + '"]');
+                    if (!card) {
+                        card = renderProductCard(productData.id, productData);
+                    }
+
+                    if (card) {
+                        applyProductData(card, productData.id, productData);
+                    }
+                });
+
+                applyContactInfo(contactState.phone, contactState.whatsapp);
+                setAdminEnabled(Boolean(siteContent.isAdmin));
+            } catch (error) {
+                console.error(error);
+                adminMessage.textContent = 'No se pudo cargar el contenido del sitio.';
+            }
         }
 
         initializeEditorState();
