@@ -598,6 +598,70 @@
             display: flex;
         }
 
+        .category-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .showcase-add {
+            display: none;
+            justify-content: flex-end;
+            margin-bottom: 12px;
+        }
+
+        .admin-enabled .showcase-add {
+            display: flex;
+        }
+
+        .showcase-slot {
+            min-height: 180px;
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid rgba(160, 79, 56, 0.12);
+            background:
+                linear-gradient(180deg, rgba(76, 52, 40, 0.06), rgba(76, 52, 40, 0.18)),
+                linear-gradient(145deg, #f5dcc7, #dfaa7a);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .showcase-slot.empty::after {
+            content: 'Agrega imagenes a esta vitrina';
+            position: absolute;
+            inset: auto 14px 14px 14px;
+            color: rgba(73, 45, 35, 0.72);
+            font-weight: 700;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .showcase-tools {
+            display: none;
+            gap: 8px;
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            z-index: 2;
+        }
+
+        .admin-enabled .showcase-tools {
+            display: flex;
+        }
+
+        .showcase-empty {
+            display: grid;
+            min-height: 160px;
+            place-items: center;
+            border: 1px dashed rgba(160, 79, 56, 0.28);
+            border-radius: 22px;
+            color: var(--muted);
+            background: rgba(255, 255, 255, 0.48);
+            text-align: center;
+            padding: 18px;
+        }
+
         .add-product-button {
             display: inline-flex;
         }
@@ -656,6 +720,40 @@
             justify-content: space-between;
             gap: 10px;
             padding: 14px;
+        }
+
+        .media-counter {
+            position: absolute;
+            left: 14px;
+            bottom: 14px;
+            padding: 5px 10px;
+            border-radius: 999px;
+            background: rgba(255, 250, 245, 0.88);
+            color: var(--brand-strong);
+            font-size: 0.82rem;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(53, 28, 22, 0.12);
+            display: none;
+        }
+
+        .media-nav {
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+            display: none;
+            gap: 6px;
+        }
+
+        .media-nav button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 0;
+            background: rgba(255, 250, 245, 0.9);
+            color: var(--brand-strong);
+            cursor: pointer;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(53, 28, 22, 0.12);
         }
 
         .product-badge {
@@ -871,6 +969,10 @@
                 justify-content: flex-start;
             }
 
+            .category-showcase {
+                grid-template-columns: 1fr;
+            }
+
             .hero-card,
             .promo-copy,
             .story-card,
@@ -920,7 +1022,7 @@
             <div class="top-actions">
                 <div class="contact-chip">
                     <span class="contact-label">Telefono de contacto</span>
-                    <span class="contact-phone" data-contact-phone>22 55 25 574</span>
+                    <span class="contact-phone" data-scope="contact" data-field="phone" data-contact-phone>22 55 25 574</span>
                 </div>
                 <div class="contact-chip">
                     <span class="contact-label">WhatsApp ventas</span>
@@ -1044,6 +1146,12 @@
                     <button class="ghost-button add-product-button" type="button" data-add-product>Agregar producto</button>
                 </div>
 
+                <div class="showcase-add">
+                    <label class="upload-button" for="showcase-tortas">Agregar imagenes a vitrina</label>
+                    <input class="hidden-input" id="showcase-tortas" type="file" accept="image/*" multiple data-showcase-input>
+                </div>
+                <div class="category-showcase" data-showcase="tortas"></div>
+
                 <div class="products-grid">
                     <article class="product-card" data-product="torta-grande-milhoja">
                         <div class="product-media" data-media>
@@ -1052,6 +1160,8 @@
                                 <label class="upload-button" for="upload-torta-grande-milhoja">Imagen</label>
                                 <button class="ghost-button" type="button" data-remove-image>Quitar</button>
                             </div>
+                            <div class="media-counter" data-media-counter></div>
+                            <div class="media-nav" data-media-nav><button type="button" data-image-prev>&lt;</button><button type="button" data-image-next>&gt;</button></div>
                             <input class="hidden-input image-input" id="upload-torta-grande-milhoja" type="file" accept="image/*">
                         </div>
                         <div class="product-body">
@@ -1142,6 +1252,12 @@
                 <div class="category-admin">
                     <button class="ghost-button add-product-button" type="button" data-add-product>Agregar producto</button>
                 </div>
+
+                <div class="showcase-add">
+                    <label class="upload-button" for="showcase-salados">Agregar imagenes a vitrina</label>
+                    <input class="hidden-input" id="showcase-salados" type="file" accept="image/*" multiple data-showcase-input>
+                </div>
+                <div class="category-showcase" data-showcase="salados"></div>
 
                 <div class="products-grid">
                     <article class="product-card" data-product="canapes">
@@ -1241,6 +1357,12 @@
                 <div class="category-admin">
                     <button class="ghost-button add-product-button" type="button" data-add-product>Agregar producto</button>
                 </div>
+
+                <div class="showcase-add">
+                    <label class="upload-button" for="showcase-especialidades">Agregar imagenes a vitrina</label>
+                    <input class="hidden-input" id="showcase-especialidades" type="file" accept="image/*" multiple data-showcase-input>
+                </div>
+                <div class="category-showcase" data-showcase="especialidades"></div>
 
                 <div class="products-grid">
                     <article class="product-card" data-product="brocheta-lomo">
@@ -1428,6 +1550,8 @@
                 nombre: card.querySelector('[data-field="nombre"]').textContent.trim(),
                 precio: card.querySelector('[data-field="precio"]').textContent.trim(),
                 image: '',
+                images: [],
+                currentImageIndex: 0,
                 badge: card.querySelector('.product-badge')?.textContent.trim() || 'Nuevo',
                 note: card.querySelector('.product-unit, .product-caption')?.textContent.trim() || '',
                 noteType: card.querySelector('.product-unit') ? 'unit' : 'caption',
@@ -1440,6 +1564,12 @@
             title: document.querySelector('[data-scope="promo"][data-field="title"]').textContent.trim(),
             description: document.querySelector('[data-scope="promo"][data-field="description"]').textContent.trim(),
             image: ''
+        };
+
+        const categoryShowcaseState = {
+            tortas: [],
+            salados: [],
+            especialidades: []
         };
 
         const contactState = {
@@ -1463,7 +1593,8 @@
             }
         }
 
-        function openAdminPanel() {
+        function openAdminPanel(event) {
+            event?.preventDefault();
             adminPanel.classList.add('open');
             adminPanel.setAttribute('aria-hidden', 'false');
             adminMessage.textContent = '';
@@ -1474,6 +1605,9 @@
         function closeAdminPanel() {
             adminPanel.classList.remove('open');
             adminPanel.setAttribute('aria-hidden', 'true');
+            if (window.location.hash === '#admin-panel') {
+                history.pushState('', document.title, window.location.pathname + window.location.search);
+            }
         }
 
         function normalizePrice(value) {
@@ -1484,12 +1618,57 @@
             return looksNumeric ? '$' + Number(digits).toLocaleString('es-CL') : raw;
         }
 
-        function applyCardImage(card, imageUrl) {
+        function normalizeProductImages(productData) {
+            if (Array.isArray(productData.images)) {
+                return productData.images.filter(Boolean);
+            }
+            return productData.image ? [productData.image] : [];
+        }
+
+        function ensureProductMediaControls(card) {
             const media = card.querySelector('[data-media]');
+            if (!media) return {};
+
+            let counter = media.querySelector('[data-media-counter]');
+            if (!counter) {
+                counter = document.createElement('div');
+                counter.className = 'media-counter';
+                counter.dataset.mediaCounter = '';
+                media.appendChild(counter);
+            }
+
+            let nav = media.querySelector('[data-media-nav]');
+            if (!nav) {
+                nav = document.createElement('div');
+                nav.className = 'media-nav';
+                nav.dataset.mediaNav = '';
+                nav.innerHTML = '<button type="button" data-image-prev>&lt;</button><button type="button" data-image-next>&gt;</button>';
+                media.appendChild(nav);
+            }
+
+            return { media, counter, nav };
+        }
+
+        function applyCardImage(card, productId) {
+            const product = catalogState[productId];
+            const images = product?.images || [];
+            const imageUrl = images[product.currentImageIndex || 0] || '';
+            const { media, counter, nav } = ensureProductMediaControls(card);
+            if (!media) return;
+
             if (imageUrl) {
                 media.style.backgroundImage = 'linear-gradient(180deg, rgba(76, 52, 40, 0.08), rgba(76, 52, 40, 0.28)), url("' + imageUrl + '")';
             } else {
                 media.style.backgroundImage = '';
+            }
+
+            if (counter) {
+                counter.style.display = images.length > 1 ? 'block' : 'none';
+                counter.textContent = images.length ? ((product.currentImageIndex || 0) + 1) + ' / ' + images.length : '';
+            }
+
+            if (nav) {
+                nav.style.display = images.length > 1 ? 'flex' : 'none';
             }
         }
 
@@ -1500,6 +1679,42 @@
             } else {
                 promoMedia.style.backgroundImage = '';
             }
+        }
+
+        function renderShowcase(categoryKey) {
+            const showcase = document.querySelector('[data-showcase="' + categoryKey + '"]');
+            if (!showcase) return;
+
+            const images = categoryShowcaseState[categoryKey] || [];
+            if (!images.length) {
+                showcase.innerHTML = '<div class="showcase-empty">Esta vitrina aun no tiene imagenes.</div>';
+                return;
+            }
+
+            showcase.innerHTML = images.map((imageUrl, index) => (
+                '<div class="showcase-slot" style="background-image: linear-gradient(180deg, rgba(76, 52, 40, 0.08), rgba(76, 52, 40, 0.24)), url(&quot;' + escapeHtml(imageUrl) + '&quot;)">' +
+                    '<div class="showcase-tools">' +
+                        '<button class="ghost-button" type="button" data-remove-showcase="' + index + '">Quitar</button>' +
+                    '</div>' +
+                '</div>'
+            )).join('');
+
+            showcase.querySelectorAll('[data-remove-showcase]').forEach(button => {
+                button.addEventListener('click', async () => {
+                    if (!isAdminEnabled()) return;
+
+                    const index = Number(button.dataset.removeShowcase || 0);
+                    const [currentPath] = categoryShowcaseState[categoryKey].splice(index, 1);
+                    renderShowcase(categoryKey);
+
+                    try {
+                        await deleteImage(currentPath || '');
+                        await persistContent();
+                    } catch (error) {
+                        adminMessage.textContent = error.message || 'No se pudo quitar la imagen de vitrina.';
+                    }
+                });
+            });
         }
 
         function getWhatsappNumber(phone) {
@@ -1549,6 +1764,8 @@
                     nombre: '',
                     precio: '',
                     image: '',
+                    images: [],
+                    currentImageIndex: 0,
                     badge: '',
                     note: '',
                     noteType: 'caption',
@@ -1558,7 +1775,9 @@
 
             catalogState[productId].nombre = productData.nombre || '';
             catalogState[productId].precio = productData.precio || '';
-            catalogState[productId].image = productData.image || '';
+            catalogState[productId].images = normalizeProductImages(productData);
+            catalogState[productId].image = catalogState[productId].images[0] || '';
+            catalogState[productId].currentImageIndex = Math.min(catalogState[productId].currentImageIndex || 0, Math.max(catalogState[productId].images.length - 1, 0));
             catalogState[productId].badge = productData.badge || 'Nuevo';
             catalogState[productId].note = productData.note || '';
             catalogState[productId].noteType = productData.noteType || 'caption';
@@ -1579,7 +1798,7 @@
                 noteElement.remove();
             }
 
-            applyCardImage(card, catalogState[productId].image);
+            applyCardImage(card, productId);
         }
 
         function createProductMarkup(productId, productData) {
@@ -1594,6 +1813,8 @@
                         '<label class="upload-button" for="' + imageInputId + '">Imagen</label>' +
                         '<button class="ghost-button" type="button" data-remove-image>Quitar</button>' +
                     '</div>' +
+                    '<div class="media-counter" data-media-counter></div>' +
+                    '<div class="media-nav" data-media-nav><button type="button" data-image-prev>&lt;</button><button type="button" data-image-next>&gt;</button></div>' +
                     '<input class="hidden-input image-input" id="' + imageInputId + '" type="file" accept="image/*">' +
                 '</div>' +
                 '<div class="product-body">' +
@@ -1617,6 +1838,7 @@
                     nombre: product.nombre,
                     precio: product.precio,
                     image: product.image || '',
+                    images: product.images || [],
                     badge: product.badge || 'Nuevo',
                     note: product.note || '',
                     noteType: product.noteType || 'caption'
@@ -1632,6 +1854,7 @@
                     description: promoState.description,
                     image: promoState.image || ''
                 },
+                showcase: categoryShowcaseState,
                 products
             };
         }
@@ -1644,12 +1867,14 @@
             adminStatus.textContent = 'Guardando cambios...';
 
             try {
+                const formData = new URLSearchParams();
+                formData.append('payload', JSON.stringify(buildPayload()));
                 const response = await fetch(CONTENT_URL, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: JSON.stringify(buildPayload())
+                    body: formData.toString()
                 });
 
                 const result = await response.json().catch(() => ({}));
@@ -1706,12 +1931,14 @@
         async function deleteImage(path) {
             if (!path) return;
 
+            const formData = new URLSearchParams();
+            formData.append('path', path);
             const response = await fetch(DELETE_IMAGE_URL, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                body: JSON.stringify({ path })
+                body: formData.toString()
             });
 
             const result = await response.json().catch(() => ({}));
@@ -1724,18 +1951,48 @@
             const productId = card.dataset.product;
             const input = card.querySelector('.image-input');
             const removeButton = card.querySelector('[data-remove-image]');
+            const { nav } = ensureProductMediaControls(card);
+            if (input) input.multiple = true;
 
             card.querySelectorAll('.editable').forEach(bindEditable);
 
+            nav?.querySelector('[data-image-prev]')?.addEventListener('click', event => {
+                event.stopPropagation();
+                const product = catalogState[productId];
+                if (!product?.images?.length) return;
+                product.currentImageIndex = (product.currentImageIndex - 1 + product.images.length) % product.images.length;
+                applyCardImage(card, productId);
+            });
+
+            nav?.querySelector('[data-image-next]')?.addEventListener('click', event => {
+                event.stopPropagation();
+                const product = catalogState[productId];
+                if (!product?.images?.length) return;
+                product.currentImageIndex = (product.currentImageIndex + 1) % product.images.length;
+                applyCardImage(card, productId);
+            });
+
+            card.querySelector('[data-media]')?.addEventListener('click', event => {
+                if (event.target.closest('.media-tools') || event.target.closest('.media-nav')) return;
+                const product = catalogState[productId];
+                if (!product?.images || product.images.length < 2) return;
+                product.currentImageIndex = (product.currentImageIndex + 1) % product.images.length;
+                applyCardImage(card, productId);
+            });
+
             input.addEventListener('change', async event => {
                 if (!isAdminEnabled()) return;
-                const [file] = event.target.files || [];
-                if (!file) return;
+                const files = Array.from(event.target.files || []);
+                if (!files.length) return;
 
                 try {
-                    const imageUrl = await uploadImage(file, productId);
-                    catalogState[productId].image = imageUrl;
-                    applyCardImage(card, imageUrl);
+                    for (const file of files) {
+                        const imageUrl = await uploadImage(file, productId);
+                        catalogState[productId].images.push(imageUrl);
+                    }
+                    catalogState[productId].image = catalogState[productId].images[0] || '';
+                    catalogState[productId].currentImageIndex = catalogState[productId].images.length - 1;
+                    applyCardImage(card, productId);
                     await persistContent();
                 } catch (error) {
                     adminMessage.textContent = error.message || 'No se pudo subir la imagen.';
@@ -1747,12 +2004,15 @@
             removeButton.addEventListener('click', async () => {
                 if (!isAdminEnabled()) return;
 
-                const currentPath = catalogState[productId].image || '';
-                catalogState[productId].image = '';
-                applyCardImage(card, '');
+                const product = catalogState[productId];
+                const currentIndex = product.currentImageIndex || 0;
+                const [currentPath] = product.images.splice(currentIndex, 1);
+                product.currentImageIndex = Math.min(currentIndex, Math.max(product.images.length - 1, 0));
+                product.image = product.images[0] || '';
+                applyCardImage(card, productId);
 
                 try {
-                    await deleteImage(currentPath);
+                    await deleteImage(currentPath || '');
                     await persistContent();
                 } catch (error) {
                     adminMessage.textContent = error.message || 'No se pudo quitar la imagen.';
@@ -1785,6 +2045,8 @@
                 nombre: 'Nuevo producto',
                 precio: '$0',
                 image: '',
+                images: [],
+                currentImageIndex: 0,
                 badge: 'Nuevo',
                 note: '',
                 noteType: 'caption',
@@ -1879,15 +2141,15 @@
         }
 
         async function loginAdmin() {
-            adminMessage.textContent = '';
-
             try {
+                const formData = new URLSearchParams();
+                formData.append('password', adminPasswordInput.value);
                 const response = await fetch(LOGIN_URL, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     },
-                    body: JSON.stringify({ password: adminPasswordInput.value })
+                    body: formData.toString()
                 });
                 const result = await response.json().catch(() => ({}));
 
@@ -1897,6 +2159,7 @@
 
                 setAdminEnabled(true);
                 closeAdminPanel();
+                adminStatus.textContent = 'Modo administracion activo para todo el sitio.';
             } catch (error) {
                 adminMessage.textContent = error.message || 'La clave no es correcta.';
             }
@@ -1922,6 +2185,31 @@
                 if (!isAdminEnabled()) return;
                 addProduct(category.dataset.category);
             });
+
+            category.querySelectorAll('[data-showcase-input]').forEach(input => {
+                input.addEventListener('change', async event => {
+                    if (!isAdminEnabled()) return;
+                    const files = Array.from(event.target.files || []);
+                    if (!files.length) return;
+
+                    const categoryKey = category.dataset.category;
+
+                    try {
+                        for (const file of files) {
+                            const imageUrl = await uploadImage(file, categoryKey + '-vitrina-' + Date.now());
+                            categoryShowcaseState[categoryKey].push(imageUrl);
+                        }
+                        renderShowcase(categoryKey);
+                        await persistContent();
+                    } catch (error) {
+                        adminMessage.textContent = error.message || 'No se pudo subir la imagen de vitrina.';
+                    } finally {
+                        event.target.value = '';
+                    }
+                });
+            });
+
+            renderShowcase(category.dataset.category);
         });
 
         document.getElementById('promo-image-input').addEventListener('change', async event => {
@@ -1997,6 +2285,14 @@
 
                 promoState.image = siteContent.promo?.image || '';
                 applyPromoImage(promoState.image);
+
+                if (siteContent.showcase) {
+                    Object.keys(categoryShowcaseState).forEach(categoryKey => {
+                        const images = Array.isArray(siteContent.showcase[categoryKey]) ? siteContent.showcase[categoryKey] : [];
+                        categoryShowcaseState[categoryKey] = images.filter(Boolean);
+                        renderShowcase(categoryKey);
+                    });
+                }
 
                 const remoteProducts = Array.isArray(siteContent.products) ? siteContent.products : [];
                 remoteProducts.forEach((productData, index) => {

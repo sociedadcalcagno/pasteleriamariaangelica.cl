@@ -8,6 +8,11 @@
     "description": "Haz clic aqui para cambiar este texto. Usa este espacio para destacar una promo, una temporada o un producto especial con una imagen propia.",
     "image": ""
   },
+  "showcase": {
+    "tortas": ["", ""],
+    "salados": ["", ""],
+    "especialidades": ["", ""]
+  },
   "products": [
     {
       "id": "torta-grande-milhoja",
